@@ -14,3 +14,13 @@ class Task:
 class TaskList:
     def __init__(self):
         self.tasks = {}
+    
+    def save(self):
+        task_json = json.dumps(self.tasks)
+        with open("tasklist.json", 'w') as tasks:
+            tasks.writelines(task_json)
+    
+    def load(self):
+        with open("tasklist.json", 'r') as tasks:
+            task_dict = tasks.readlines()
+            self.tasks = json.loads(task_dict)
