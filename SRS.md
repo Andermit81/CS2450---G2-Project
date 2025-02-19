@@ -20,7 +20,7 @@ Table of Contents
   * 1.1 [User Stories](#11-user-stories)
 * 2 [Product Overview](#2-product-overview)
 * 3 [Requirements](#3-requirements)
-  * 3.1 [Functional Requirements](#31-function-requirements)
+  * 3.1 [Functional Requirements](#31-functional-requirements)
   * 3.2 [Non-Functional Requirements](#32-non-functional-requirements)
 
 ## 1. Initial Requirement Analysis
