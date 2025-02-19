@@ -9,7 +9,7 @@ Prepared by <Carson Grant>
 ## Revision History
 | Name | Date    | Reason For Changes  | Version   |
 | ---- | ------- | ------------------- | --------- |
-|      |         |                     |           |
+| Mitchell A. |  2/19/25  | Milestone 2|  0.2      |
 |      |         |                     |           |
 |      |         |                     |           |
 
@@ -18,7 +18,10 @@ Table of Contents
 * [Revision History](#revision-history)
 * 1 [Initial Requirement Analysis](#1-initial-requirement-analysis)
   * 1.1 [User Stories](#11-user-stories)
-  * 1.2 [Non Functional Requriements](#12-non-functional-requirements)
+* 2 [Product Overview](#2-product-overview)
+* 3 [Requirements](#3-requirements)
+  * 3.1 [Functional Requirements](#31-function-requirements)
+  * 3.2 [Non-Functional Requirements](#32-non-functional-requirements)
 
 ## 1. Initial Requirement Analysis
 Tool used to determine the requirements necessary for the task manager application.
@@ -44,5 +47,21 @@ As a user, I want to categorize my tasks so that I can more easily manage them.
 As a user, I want my tasks to be grouped by day so that I can set tasks for a day further in advance.
 As a user, I want my old tasks stored together so I can go back and look at my accomplishments.
 
-### 1.2 Non Functional Requirements 
+## 2. Product Overview
+> This section should describe the general factors that affect the product and its requirements. This section does not state specific requirements. Instead, it provides a background for those requirements, which are defined in detail in Section 3, and makes them easier to understand.
+
+## 3. Requirements
+> This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those requirements.
+
+> The specific requirements should:
+* Be uniquely identifiable.
+* State the subject of the requirement (e.g., system, software, etc.) and what shall be done.
+* Optionally state the conditions and constraints, if any.
+* Describe every input (stimulus) into the software system, every output (response) from the software system, and all functions performed by the software system in response to an input or in support of an output.
+* Be verifiable (e.g., the requirement realization can be proven to the customer's satisfaction)
+* Conform to agreed upon syntax, keywords, and terms.
+
+### 3.1 Functional Requirements
+
+### 3.2 Non-Functional Requirements 
 The system should have an intuitive and user-friendly interface that allows users to easily add, modify, and manage their tasks.
