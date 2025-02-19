@@ -62,6 +62,29 @@ As a user, I want my old tasks stored together so I can go back and look at my a
 * Conform to agreed upon syntax, keywords, and terms.
 
 ### 3.1 Functional Requirements
+ Task Creation – The system shall allow users to create a new task by specifying a title, description, due date, priority level, and category.
+ 
+ Task Modification and Deletion – The system shall allow users to edit or delete existing tasks, ensuring only authorized users can make       
+  modifications.
+  
+ Task Filtering and Sorting – The system shall allow users to filter and sort tasks based on priority, due date, category, and completion status.
+ 
+ Notifications and Reminders – The system shall send users reminders for upcoming tasks based on their configured notification preferences.
+ 
+ Task Assignment and Collaboration – The system shall allow users to assign tasks to other registered users and manage task ownership with specific    permissions.
 
 ### 3.2 Non-Functional Requirements 
-The system should have an intuitive and user-friendly interface that allows users to easily add, modify, and manage their tasks.
+ Usability – The system shall have an intuitive and user-friendly interface that allows users to easily add, modify, and manage their tasks with    
+  minimal learning effort.
+
+ Performance – The system shall respond to user actions within 1 second under normal load and handle at least 1000 concurrent users without 
+  significant performance degradation.
+
+ Security – The system shall encrypt all sensitive user data, including passwords, using industry-standard encryption methods and enforce secure 
+  authentication mechanisms.
+
+ Scalability – The system shall be designed to support future growth, allowing for an increase in the number of users and tasks without requiring 
+  major architectural changes.
+
+ Availability – The system shall maintain an uptime of at least 99.9%, ensuring users have consistent access to their tasks and data with minimal 
+  downtime.
