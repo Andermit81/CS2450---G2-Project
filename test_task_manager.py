@@ -40,6 +40,25 @@ class TestTaskManager(unittest.TestCase):
             self.manager.remove_task("invalid-id")
 
     # -------------------------------------------------------------------------
+    # Test Viewing Tasks
+    # -------------------------------------------------------------------------
+    def test_view_tasks_empty(self):
+        """Test view_tasks when no tasks exist."""
+        expected_output = "No tasks available."
+        self.assertEqual(self.manager.view_tasks(), expected_output)
+
+    def test_view_tasks(self):
+        """Test that view_tasks returns the correct task information."""
+        self.manager.add_task(self.task1)
+        self.manager.add_task(self.task2)
+    
+        output = self.manager.view_tasks()
+    
+        # Just check if task titles exist in the output
+        self.assertIn(self.task1.title, output)
+        self.assertIn(self.task2.title, output)
+
+    # -------------------------------------------------------------------------
     # Test Task Dictionary Integrity
     # -------------------------------------------------------------------------
     def test_task_dictionary_integrity(self):
