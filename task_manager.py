@@ -14,10 +14,16 @@ class TaskManager:
         if task_id not in self.tasks:
             raise ValueError(f"Task with ID {task_id} does not exist.")
         del self.tasks[task_id]
-     
-    #TODO: implement view_tasks    
+         
     def view_tasks(self):
-        pass
+        if not self.tasks:
+            return "No tasks available."
+        output = f"{'Task ID':<36} | {'Title':<20} | {'Priority':<10} | {'Due Date':<15}\n"
+        output += "-" * 90 + "\n"
+        for task in self.tasks.values():
+            output += f"{task.task_id:<36} | {task.title:<20} | {task.priority:<10} | {task.due_date if task.due_date else 'N/A':<15}\n"
+
+        return output  # Returns the table as a string
         
     def save_tasks(self):
         tasks_dict = {}
