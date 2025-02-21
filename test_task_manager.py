@@ -1,6 +1,7 @@
 import unittest
 from task import Task
 from task_manager import TaskManager
+from copy import deepcopy
 
 class TestTaskManager(unittest.TestCase):
     def setUp(self):
@@ -48,6 +49,17 @@ class TestTaskManager(unittest.TestCase):
         self.assertEqual(len(self.manager.tasks), 2)
         self.assertIn(self.task1.task_id, self.manager.tasks)
         self.assertIn(self.task2.task_id, self.manager.tasks)
+        
+    # -------------------------------------------------------------------------
+    # Test Proper Save/Load
+    # -------------------------------------------------------------------------
+    def test_save_load(self):
+        """Test that the tasks correctly save and load"""
+        manager_copy = deepcopy(self.manager)
+        self.manager.save_tasks()
+        self.manager.load_tasks()
+        self.assertEqual(self.manager.tasks, manager_copy.tasks)
+    
 
 if __name__ == "__main__":
     unittest.main()
