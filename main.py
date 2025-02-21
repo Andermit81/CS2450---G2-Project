@@ -25,21 +25,22 @@ def main():
                 if task_priority.lower in ["low", "high"]:
                     task_priority = task_priority.capitalize()
                     
-                task_man.add_task(task_name, task_desc, task_due_date, task_priority)
-                break
+                task_to_add = Task(task_name, task_desc, task_due_date, task_priority)
+                task_man.add_task(task_to_add)
+                
             case "2":
                 task_id = input("Enter the ID of the task you wish to remove: ")
                 task_man.remove_task(task_id)
-                break
+                
             case "3":
                 task_man.view_tasks()
-                break
+                
             case "4":
                 task_man.save_tasks()
-                break
+                
             case "5":
                 task_man.load_tasks()
-                break
+                
             case _:
                 running = False
                 print("Thank you for using Task Manager!")
