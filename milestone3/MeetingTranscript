@@ -1,0 +1,28 @@
+Meeting 1 for Sprint 3
+We started the meeting by talking about our roles and they are as follows:
+Scrum Master -> Catherine
+Product Owner -> Renton
+Developer 1 -> Noah
+Developer 2 -> Mitchell
+Recorder -> Carson
+We need to do a mock up of the GUI and make a basic implementation of it. We talked about how we want our GUI to look to get an idea for the wireframe. We imagined having everything visible in one screen, meaning all of the buttons and then the tasks below it. 
+
+We decided on using Tkinter for our front-end framework, because some of us had good experiences with it in the past. 
+
+We talked about potential websites to make our wireframes so we decided to use Moqups.
+We then just all started working on the wireframe together, and came up with our finished product of the formatting of our application.
+
+We then vaguely talked about how the implementation would work with our methods, and some people volunteered to program the specific jobs we talked about. 
+
+Lastly we started to divvy up who is going to do what jobs.
+
+Catherine- Updating the SRS documentation
+Mitchell- Creation/Update of the class and sequence diagrams
+Carson- Meeting notes and programming the view of the tasks
+Noah- Implementing save and load tasks with the gui
+Renton- Implementing the add and delete tasks with the gui
+
+Meeting 2 for Sprint 3
+
+We started the meeting with everyone talking about how the sprint has been going. Nobody has run into any issues, and it seems like everything is working as intended. All that is left to do is update the look and feel of the GUI, and add the save/load functionalities. We are going to remove the buttons for it and have it perform that automatically when a task is added and when the app is booted up.
+Next we talked about how to get full credit on Milestone 1, Noah volunteered to put his submission into the github for this.
