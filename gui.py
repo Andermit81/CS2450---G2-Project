@@ -1,3 +1,4 @@
+'''
 import tkinter as tk
 from tkinter import ttk, messagebox
 from task import Task
@@ -31,6 +32,8 @@ def on_hover(event):
 
 def on_leave(event):
     event.widget.config(bg=BUTTON_Cimport)
+'''
+import tkinter as tk
 from tkinter import ttk, messagebox
 from task import Task
 from task_manager import TaskManager
