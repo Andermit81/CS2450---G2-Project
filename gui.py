@@ -30,7 +30,7 @@ def on_hover(event):
     event.widget.config(bg=BUTTON_HOVER)
 
 def on_leave(event):
-    event.widget.config(bg=BUTTON_Cimport tkinter as tk
+    event.widget.config(bg=BUTTON_Cimport)
 from tkinter import ttk, messagebox
 from task import Task
 from task_manager import TaskManager
