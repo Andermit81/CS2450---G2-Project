@@ -7,11 +7,11 @@ Prepared by <Carson Grant>
 <02-05-25>  
 
 ## Revision History
-| Name | Date    | Reason For Changes  | Version   |
-| ---- | ------- | ------------------- | --------- |
-| Mitchell A. |  2/19/25  | Milestone 2|  0.2      |
-|      |         |                     |           |
-|      |         |                     |           |
+| Name           | Date      | Reason For Changes     | Version   |
+| ----           | -------   | -------------------    | --------- |
+| Mitchell A.    |  2/19/25  | Milestone 2            |  0.2      |
+|                |           |                        |           |
+|                |           |                        |           |
 
 Table of Contents
 =================
