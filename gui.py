@@ -181,9 +181,13 @@ def delete_button():
 # Placeholder Save/Load Functions
 def save_button():
     print("Saving tasks...")
+    task_man.save_tasks()
+    print("Tasks saved!")
 
 def load_button():
     print("Loading tasks...")
+    task_man.load_tasks()
+    print("Tasks loaded!")
 
 # Sidebar Buttons
 buttons = [
