@@ -1,0 +1,46 @@
+Milestone 4, Meeting 1
+Attendance: Mitchell, Carson, Renton, Noah, Catherine
+Meeting time: 7pm - 8pm
+
+Assigned roles:
+
+    Scrum master -> Carson
+
+    Product Owner -> Catherine
+
+    Programmer -> Noah
+
+    Programmer -> Renton
+
+    Recorder -> Mitchell
+
+Implement Advanced Features:
+    Sorting and filtering tasks
+
+    Task tagging
+
+Apply Advanced Design Patterns:
+    Talked about design principles, how we can implement SOLID principles into our code and how our code looks based on these principles. We looked at our task manager class to see if we were following SOLID principles, from a quick glance we felt comfortable that it was up to par.
+
+    To test sorting and filtering code, we want to write a test with pre existing tasks and see if the code will sort/filter to test if the code will work
+
+    Class diagram and Sequence diagram will need to be updated
+
+Peer Review:
+    Find a team to do Peer review with, we will talk to someone next class to find someone to peer review with. Our plan is to get a link to look at their github. We are going to reach out to a member of team 4 for peer review.
+
+    We will get feedback and give feedback for our peer review. We will make a report with how we addressed and utilized the feedback from the peer review
+
+    We talked about how we might need to move some stuff around in our code to make it group better, and feel our readability is pretty solid.
+
+Assigned roles and responsibilities:
+
+    Scrum master: Carson - will work on zenhub board and peer review report
+
+    Product Owner: Catherine - working on Class and Sequence Diagram
+
+    Programmer: Noah - coding sorting and filtering
+
+    Programmer: Renton -  coding tagging
+
+    Recorder: Mitchell - working on update SRS and Meeting report
