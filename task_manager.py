@@ -18,10 +18,13 @@ class TaskManager:
     def view_tasks(self):
         if not self.tasks:
             return "No tasks available."
-        output = f"{'Task ID':<36} | {'Title':<20} | {'Priority':<10} | {'Due Date':<15}\n"
+        output = f"{'Task ID':<36} | {'Title':<20} | {'Priority':<10} | {'Due Date':<15} | {'Tags':<30}\n"
         output += "-" * 90 + "\n"
-        for task in self.tasks.values():
-            output += f"{task.task_id:<36} | {task.title:<20} | {task.priority:<10} | {task.due_date if task.due_date else 'N/A':<15}\n"
+
+
+        for task in self.tasks.values():  
+            tags_str = ", ".join(sorted(task.tags)) if task.tags else "No tags"
+            output += f"{task.task_id:<36} | {task.title:<20} | {task.priority:<10} | {task.due_date if task.due_date else 'N/A':<15} | {tags_str:<30}\n"
 
         return output  # Returns the table as a string
         
@@ -29,7 +32,7 @@ class TaskManager:
         tasks_dict = {}
         for task_id in self.tasks:
             target_task = self.tasks[task_id]
-            tasks_dict[task_id] = [target_task.title, target_task.description, target_task.due_date, target_task.priority]
+            tasks_dict[task_id] = [target_task.title, target_task.description, target_task.due_date, target_task.priority, target_task.tags]
         task_json = json.dumps(tasks_dict)
         with open("tasklist.json", 'w') as tasks_file:
             tasks_file.writelines(task_json)
@@ -47,6 +50,7 @@ class TaskManager:
                     added_task.description = tasks_dict[taskitem_id][1]
                     added_task.due_date = tasks_dict[taskitem_id][2]
                     added_task.priority = tasks_dict[taskitem_id][3]
+                    added_task.tags = tasks_dict[taskitem_id][4]
                     self.tasks[taskitem_id] = added_task
             print("Tasks loaded successfully!")
         except:
