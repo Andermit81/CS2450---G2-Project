@@ -234,7 +234,7 @@ def edit_button():
         edit_window.destroy()
         messagebox.showinfo("Success", "Task updated successfully!")
 
-    tk.Button(edit_window, text="Toggle Done", command=toggle_done_tag).pack(pady=5)
+    tk.Button(edit_window, text="Mark as Done", command=toggle_done_tag).pack(pady=5)
     tk.Button(edit_window, text="Save Changes", command=confirm_edit).pack(pady=10)
 
 # Placeholder Save/Load Functions
