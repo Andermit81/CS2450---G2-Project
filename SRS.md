@@ -10,7 +10,7 @@ Prepared by <Carson Grant>
 | Name           | Date      | Reason For Changes     | Version   |
 | ----           | -------   | -------------------    | --------- |
 | Mitchell A.    |  2/19/25  | Milestone 2            |  0.2      |
-|                |           |                        |           |
+| Mitchell A.    |  3/29/25  | Milestone 4            |  0.4      |
 |                |           |                        |           |
 
 Table of Contents
@@ -48,18 +48,26 @@ As a user, I want my tasks to be grouped by day so that I can set tasks for a da
 As a user, I want my old tasks stored together so I can go back and look at my accomplishments.
 
 ## 2. Product Overview
-> This section should describe the general factors that affect the product and its requirements. This section does not state specific requirements. Instead, it provides a background for those requirements, which are defined in detail in Section 3, and makes them easier to understand.
+The Task Manager is a software application designed to help users efficiently organize, track, and manage their tasks. The system provides essential features for task creation, prioritization, scheduling, and completion tracking. Users can set deadlines, assign tasks to collaborators, and receive notifications for upcoming tasks. Additionally, the system offers integration with external tools like Google Calendar to enhance productivity and synchronization.
+
+This Task Manager is intended for individuals, students, and teams looking to improve their workflow and productivity. With user-friendly interfaces, intuitive categorization, and collaboration features, the system aims to provide a seamless experience for managing daily tasks effectively.
 
 ## 3. Requirements
-> This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those requirements.
+This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements and to enable testers to test that the software system satisfies those requirements.
 
-> The specific requirements should:
-* Be uniquely identifiable.
-* State the subject of the requirement (e.g., system, software, etc.) and what shall be done.
-* Optionally state the conditions and constraints, if any.
-* Describe every input (stimulus) into the software system, every output (response) from the software system, and all functions performed by the software system in response to an input or in support of an output.
-* Be verifiable (e.g., the requirement realization can be proven to the customer's satisfaction)
-* Conform to agreed upon syntax, keywords, and terms.
+The specific requirements should:
+
+Be uniquely identifiable.
+
+State the subject of the requirement (e.g., system, software, etc.) and what shall be done.
+
+Optionally state the conditions and constraints, if any.
+
+Describe every input (stimulus) into the software system, every output (response) from the software system, and all functions performed by the software system in response to an input or in support of an output.
+
+Be verifiable (e.g., the requirement realization can be proven to the customer's satisfaction).
+
+Conform to agreed-upon syntax, keywords, and terms.
 
 ### 3.1 Functional Requirements
  Task Creation – The system shall allow users to create a new task by specifying a title, description, due date, priority level, and category.
@@ -71,7 +79,16 @@ As a user, I want my old tasks stored together so I can go back and look at my a
  
  Notifications and Reminders – The system shall send users reminders for upcoming tasks based on their configured notification preferences.
  
- Task Assignment and Collaboration – The system shall allow users to assign tasks to other registered users and manage task ownership with specific    permissions.
+ Task Assignment and Collaboration – The system shall allow users to assign tasks to other registered users and manage task ownership with specific permissions.
+
+ Task Editing – The system shall allow users to:
+   View current task details before making changes.
+
+   Modify individual fields (title, description, due date, priority, category) without affecting other attributes.
+
+   Cancel edits and retain the original task details.
+
+   Save changes and update the task list in real time.
 
 ### 3.2 Non-Functional Requirements 
  Usability – The system shall have an intuitive and user-friendly interface that allows users to easily add, modify, and manage their tasks with    
