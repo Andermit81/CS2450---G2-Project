@@ -69,6 +69,7 @@ class TaskManager:
         new_description = input(f"New Description ({task.description}): ").strip()
         new_due_date = input(f"New Due Date ({task.due_date if task.due_date else 'N/A'}): ").strip()
         new_priority = input(f"New Priority ({task.priority}): ").strip()
+        new_tags = input(f"New Tags (comma-separated) ({', '.join(task.tags) if task.tags else 'No tags'}): ").strip()
 
         # Updating fields if new values are provided
         if new_title:
@@ -79,6 +80,8 @@ class TaskManager:
             task.due_date = new_due_date
         if new_priority.lower() in ["high", "medium", "low"]:
             task.priority = new_priority.capitalize()
+        if new_tags:
+            task.tags = [tag.strip() for tag in new_tags.split(",")]
 
         print("Task updated successfully!")
         
