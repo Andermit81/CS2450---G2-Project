@@ -188,11 +188,17 @@ def edit_button():
     priority_menu = tk.OptionMenu(edit_window, priority_var, "High", "Medium", "Low")
     priority_menu.pack(pady=5)
 
+    tk.Label(edit_window, text="Tags (comma-separated):").pack(pady=5)
+    tags_entry = tk.Entry(edit_window)
+    tags_entry.insert(0, ", ".join(task.tags) if task.tags else "")
+    tags_entry.pack(pady=5)
+
     def confirm_edit():
         new_title = title_entry.get().strip()
         new_description = desc_entry.get().strip()
         new_due_date = due_date_entry.get().strip()
         new_priority= priority_var.get().strip()
+        new_tags_input = tags_entry.get().strip()
 
         # Update task fields
         if new_title:
@@ -203,6 +209,8 @@ def edit_button():
             task.due_date = new_due_date
         if new_priority in ["High", "Medium", "Low"]:
             task.priority = new_priority
+        if new_tags_input:
+            task.tags = [tag.strip() for tag in new_tags_input.split(",")]
 
         display_tasks()
         edit_window.destroy()
