@@ -150,7 +150,7 @@ def delete_button():
         
         task_tree.delete(item)
 
-#function to edit task
+#Function to edit task
 def edit_button():
     selected_item = task_tree.selection()
     if not selected_item:
