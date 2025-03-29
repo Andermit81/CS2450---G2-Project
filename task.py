@@ -8,6 +8,7 @@ class Task:
         description: str = "", # "" makes the description optional, sets default to empty string
         due_date: str = None, # optional dude date
         priority: str = "Medium", # default priority set to Medium, but can be changed by user
+        tags: list[str] = None, # Optional list of tag
     ):
         # initializing instance attributes
         self.title = title
@@ -15,6 +16,7 @@ class Task:
         self.due_date = due_date
         self.priority = priority
         self.task_id = str(uuid.uuid4())  # Will always generate a custom ID
+        self.tags = tags if tags else []
 
     # just for console output debugging
     def __repr__(self):
