@@ -16,7 +16,7 @@ HEADER_COLOR = "#1ABC9C"  # Table header color
 # Initialize App
 root = tk.Tk()
 root.title("Task Manager")
-root.geometry("800x500")
+root.geometry("1000x500")
 root.configure(bg=BG_COLOR)
 
 # Treeview Styling
@@ -55,7 +55,7 @@ task_area = tk.Frame(root, bg=TASK_AREA_BG)
 task_area.pack(side="right", expand=True, fill="both", padx=10, pady=10)
 
 # Task Display (Treeview)
-columns = ("Title", "Priority", "Due Date", "Description")
+columns = ("Title", "Priority", "Due Date", "Description", "Tags")
 task_tree = ttk.Treeview(task_area, columns=columns, show="headings", selectmode="browse", style="Treeview")
 
 # Define column headings
@@ -82,7 +82,8 @@ def display_tasks():
     task_tree.delete(*task_tree.get_children())  # Clear existing data
 
     for task_id, task in task_man.tasks.items():
-        task_tree.insert("", "end", iid=task_id, values=(task.title, task.priority, task.due_date, task.description))
+        tags_str = ", ".join(sorted(task.tags)) if task.tags else "No tags"
+        task_tree.insert("", "end", iid=task_id, values=(task.title, task.priority, task.due_date, task.description, tags_str))
 
 # Function to Add Task
 def add_button():
@@ -107,17 +108,23 @@ def add_button():
     priority_menu = tk.OptionMenu(add_window, priority_var, "High", "Medium", "Low")
     priority_menu.pack(pady=5)
 
+    tk.Label(add_window, text="Tags (comma-separated):").pack(pady=5)
+    tags_entry = tk.Entry(add_window)
+    tags_entry.pack(pady=5)
+
     def confirm():
         title = title_entry.get()
         description = desc_entry.get()
         due_date = due_date_entry.get()
         priority = priority_var.get()
+        tags_input = tags_entry.get()
+        tags = [tag.strip() for tag in tags_input.split(",")] if tags_input else []
 
         if not title.strip():
             messagebox.showwarning("Input Error", "Title is required!")
             return
         
-        new_task = Task(title, description, due_date, priority)
+        new_task = Task(title, description, due_date, priority, tags)
         task_man.add_task(new_task)
         display_tasks()
         add_window.destroy()
