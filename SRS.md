@@ -48,12 +48,12 @@ As a user, I want my tasks to be grouped by day so that I can set tasks for a da
 As a user, I want my old tasks stored together so I can go back and look at my accomplishments.
 
 ## 2. Product Overview
-> The Task Manager is a software application designed to help users efficiently organize, track, and manage their tasks. The system provides essential features for task creation, prioritization, scheduling, and completion tracking. Users can set deadlines, assign tasks to collaborators, and receive notifications for upcoming tasks. Additionally, the system offers integration with external tools like Google Calendar to enhance productivity and synchronization.
+The Task Manager is a software application designed to help users efficiently organize, track, and manage their tasks. The system provides essential features for task creation, prioritization, scheduling, and completion tracking. Users can set deadlines, assign tasks to collaborators, and receive notifications for upcoming tasks. Additionally, the system offers integration with external tools like Google Calendar to enhance productivity and synchronization.
 
 This Task Manager is intended for individuals, students, and teams looking to improve their workflow and productivity. With user-friendly interfaces, intuitive categorization, and collaboration features, the system aims to provide a seamless experience for managing daily tasks effectively.
 
 ## 3. Requirements
-> This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements and to enable testers to test that the software system satisfies those requirements.
+This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements and to enable testers to test that the software system satisfies those requirements.
 
 The specific requirements should:
 
