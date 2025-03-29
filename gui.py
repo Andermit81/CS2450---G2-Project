@@ -89,7 +89,7 @@ def display_tasks():
 def add_button():
     add_window = tk.Toplevel(root)
     add_window.title("Add Task")
-    add_window.geometry("300x350")
+    add_window.geometry("300x400")
 
     tk.Label(add_window, text="Title:").pack(pady=5)
     title_entry = tk.Entry(add_window)
@@ -112,6 +112,13 @@ def add_button():
     tags_entry = tk.Entry(add_window)
     tags_entry.pack(pady=5)
 
+    def add_done_tag():
+        current_tags = tags_entry.get()
+        if "Done" not in current_tags.split(","):
+            updated_tags = f"{current_tags}, Done" if current_tags else "Done"
+            tags_entry.delete(0, tk.END)
+            tags_entry.insert(0, updated_tags)
+
     def confirm():
         title = title_entry.get()
         description = desc_entry.get()
@@ -129,6 +136,7 @@ def add_button():
         display_tasks()
         add_window.destroy()
     
+    tk.Button(add_window, text="Mark as Done", command=add_done_tag).pack(pady=5)
     tk.Button(add_window, text="Confirm", command=confirm).pack(pady=10)
 
 # Function to Delete Task
@@ -166,7 +174,7 @@ def edit_button():
         
     edit_window = tk.Toplevel(root)
     edit_window.title("Edit Task")
-    edit_window.geometry("300x350")
+    edit_window.geometry("300x400")
 
     tk.Label(edit_window, text="Title:").pack(pady=5)
     title_entry = tk.Entry(edit_window)
@@ -193,6 +201,16 @@ def edit_button():
     tags_entry.insert(0, ", ".join(task.tags) if task.tags else "")
     tags_entry.pack(pady=5)
 
+    def toggle_done_tag():
+        current_tags = tags_entry.get().split(",")
+        if "Done" in current_tags:
+            current_tags.remove("Done")
+        else:
+            current_tags.append("Done")
+        updated_tags = ", ".join(tag.strip() for tag in current_tags if tag.strip())
+        tags_entry.delete(0, tk.END)
+        tags_entry.insert(0, updated_tags)
+
     def confirm_edit():
         new_title = title_entry.get().strip()
         new_description = desc_entry.get().strip()
@@ -216,6 +234,7 @@ def edit_button():
         edit_window.destroy()
         messagebox.showinfo("Success", "Task updated successfully!")
 
+    tk.Button(edit_window, text="Toggle Done", command=toggle_done_tag).pack(pady=5)
     tk.Button(edit_window, text="Save Changes", command=confirm_edit).pack(pady=10)
 
 # Placeholder Save/Load Functions
