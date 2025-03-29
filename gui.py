@@ -1,38 +1,3 @@
-'''
-import tkinter as tk
-from tkinter import ttk, messagebox
-from task import Task
-from task_manager import TaskManager
-
-# Colors
-BG_COLOR = "#F5F7FA"  
-SIDEBAR_COLOR = "#2C3E50"  
-BUTTON_COLOR = "#34495E"  
-BUTTON_HOVER = "#1ABC9C"  
-TEXT_COLOR = "black"  
-TASK_AREA_BG = "#ECF0F1"  
-HEADER_COLOR = "#1ABC9C" 
-
-# Initialize App
-root = tk.Tk()
-root.title("Task Manager")
-root.geometry("800x500")
-root.configure(bg=BG_COLOR)
-
-# Sidebar (Left Panel)
-sidebar = tk.Frame(root, bg=SIDEBAR_COLOR, width=200)
-sidebar.pack(side="left", fill="y")
-
-# Task Manager instance
-task_man = TaskManager()
-
-# Button Hover Effects
-def on_hover(event):
-    event.widget.config(bg=BUTTON_HOVER)
-
-def on_leave(event):
-    event.widget.config(bg=BUTTON_Cimport)
-'''
 import tkinter as tk
 from tkinter import ttk, messagebox
 from task import Task
@@ -178,6 +143,66 @@ def delete_button():
         
         task_tree.delete(item)
 
+#function to edit task
+def edit_button():
+    selected_item = task_tree.selection()
+    if not selected_item:
+        messagebox.showwarning("Warning", "Please select a task to edit!")
+        return
+        
+    task_id = selected_item[0]
+    task = task_man.tasks.get(task_id)
+
+    if not task:
+        messagebox.showerror("Error", "Task not found!")
+        return
+        
+    edit_window = tk.Toplevel(root)
+    edit_window.title("Edit Task")
+    edit_window.geometry("300x350")
+
+    tk.Label(edit_window, text="Title:").pack(pady=5)
+    title_entry = tk.Entry(edit_window)
+    title_entry.insert(0, task.title) #Pre-fill with existing data
+    title_entry.pack(pady=5)
+
+    tk.Label(edit_window, text="Description:").pack(pady=5)
+    desc_entry = tk.Entry(edit_window)
+    desc_entry.insert(0, task.description)
+    desc_entry.pack(pady=5)
+
+    tk.Label(edit_window, text="Due Date (YYYY-MM-DD):").pack(pady=5)
+    due_date_entry = tk.Entry(edit_window)
+    due_date_entry.insert(0, task.due_date if task.due_date else "")
+    due_date_entry.pack(pady=5)
+
+    tk.Label(edit_window, text="Priority:").pack(pady=5)
+    priority_var = tk.StringVar(value=task.priority)
+    priority_menu = tk.OptionMenu(edit_window, priority_var, "High", "Medium", "Low")
+    priority_menu.pack(pady=5)
+
+    def confirm_edit():
+        new_title = title_entry.get().strip()
+        new_description = desc_entry.get().strip()
+        new_due_date = due_date_entry.get().strip()
+        new_priority= priority_var.get().strip()
+
+        # Update task fields
+        if new_title:
+            task.title = new_title
+        if new_description:
+            task.description = new_description
+        if new_due_date:
+            task.due_date = new_due_date
+        if new_priority in ["High", "Medium", "Low"]:
+            task.priority = new_priority
+
+        display_tasks()
+        edit_window.destroy()
+        messagebox.showinfo("Success", "Task updated successfully!")
+
+    tk.Button(edit_window, text="Save Changes", command=confirm_edit).pack(pady=10)
+
 # Placeholder Save/Load Functions
 def save_button():
     print("Saving tasks...")
@@ -192,6 +217,7 @@ def load_button():
 # Sidebar Buttons
 buttons = [
     ("Add Task", add_button), 
+    ("Edit Task", edit_button),
     ("Delete Task", delete_button), 
     ("Save Tasks", save_button), 
     ("Load Tasks", load_button)
