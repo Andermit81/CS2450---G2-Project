@@ -246,6 +246,7 @@ def save_button():
 def load_button():
     print("Loading tasks...")
     task_man.load_tasks()
+    display_tasks()
     print("Tasks loaded!")
 
 # Sidebar Buttons
