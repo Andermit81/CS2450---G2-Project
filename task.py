@@ -9,6 +9,7 @@ class Task:
         due_date: str = None, # optional dude date
         priority: str = "Medium", # default priority set to Medium, but can be changed by user
         tags: list[str] = None, # Optional list of tag
+        visible: bool = True, # Visibility status for filtering
     ):
         # initializing instance attributes
         self.title = title
@@ -17,6 +18,7 @@ class Task:
         self.priority = priority
         self.task_id = str(uuid.uuid4())  # Will always generate a custom ID
         self.tags = tags if tags else []
+        self.visible = visible
 
     # just for console output debugging
     def __repr__(self):
