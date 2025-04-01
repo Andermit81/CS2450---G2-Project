@@ -47,8 +47,15 @@ As a user, I want to categorize my tasks so that I can more easily manage them.
 As a user, I want my tasks to be grouped by day so that I can set tasks for a day further in advance.
 As a user, I want my old tasks stored together so I can go back and look at my accomplishments.
 
+As a user, I want to be able to add tags to my tasks so that I can categorize them for better organization.
+As a user, I want to be able to remove tags from my tasks so that I can update or clean up my task organization.
+As a user, I want to mark tasks as "Done" so that I can track completed tasks and focus on pending ones.
+As a user, I want tasks marked as "Done" to be visually distinct (e.g., highlighted) so that I can easily identify completed tasks.
+
 ## 2. Product Overview
 The Task Manager is a software application designed to help users efficiently organize, track, and manage their tasks. The system provides essential features for task creation, prioritization, scheduling, and completion tracking. Users can set deadlines, assign tasks to collaborators, and receive notifications for upcoming tasks. Additionally, the system offers integration with external tools like Google Calendar to enhance productivity and synchronization.
+
+The system also supports advanced task management features, such as tagging tasks for better categorization and marking tasks as "Done" to track progress. Tasks marked as "Done" are visually highlighted, allowing users to easily distinguish completed tasks from pending ones.
 
 This Task Manager is intended for individuals, students, and teams looking to improve their workflow and productivity. With user-friendly interfaces, intuitive categorization, and collaboration features, the system aims to provide a seamless experience for managing daily tasks effectively.
 
@@ -89,6 +96,23 @@ Conform to agreed-upon syntax, keywords, and terms.
    Cancel edits and retain the original task details.
 
    Save changes and update the task list in real time.
+
+ Task Tagging - The system shall allow users to:
+   Add one or more tags to a task during task creation or editing.
+
+   Allow users to remove tags from a task during task editing.
+
+   Display tags associated with each task in the tabular format.
+
+   Filter tasks based on tags.
+
+ Marking Tasks as Done - The system shall: 
+   Allow users to mark a task as "Done" by clicking a button.
+
+   Visually distinguish tasks marked as "Done" (by changing the row color in the tabular format)
+
+   Update the task list in real time when a task is marked or unmarked as "Done"
+  
 
 ### 3.2 Non-Functional Requirements 
  Usability – The system shall have an intuitive and user-friendly interface that allows users to easily add, modify, and manage their tasks with    

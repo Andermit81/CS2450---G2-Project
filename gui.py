@@ -141,8 +141,14 @@ def add_button():
     desc_entry = tk.Entry(add_window)
     desc_entry.pack(pady=5)
 
+    #Validation for Due Date
+    def validate_date_date_input(new_value):
+        return all(char.isdigit() or char == "-" for char in new_value) and len(new_value) <= 10
+    
+    vcmd = (root.register(validate_date_date_input), '%P')
+
     tk.Label(add_window, text="Due Date (YYYY-MM-DD):").pack(pady=5)
-    due_date_entry = tk.Entry(add_window)
+    due_date_entry = tk.Entry(add_window, validate="key", validatecommand=vcmd)
     due_date_entry.pack(pady=5)
 
     tk.Label(add_window, text="Priority:").pack(pady=5)
@@ -227,8 +233,14 @@ def edit_button():
     desc_entry.insert(0, task.description)
     desc_entry.pack(pady=5)
 
+    # Validation for Due Date
+    def validate_date_input(new_value):
+        return all(char.isdigit() or char == "-" for char in new_value) and len(new_value) <= 10
+    
+    vcmd = (root.register(validate_date_input), '%P')
+
     tk.Label(edit_window, text="Due Date (YYYY-MM-DD):").pack(pady=5)
-    due_date_entry = tk.Entry(edit_window)
+    due_date_entry = tk.Entry(edit_window, validate="key", validatecommand=vcmd)
     due_date_entry.insert(0, task.due_date if task.due_date else "")
     due_date_entry.pack(pady=5)
 
