@@ -7,7 +7,7 @@ Task Manager
 Run the following command in your terminal:
 
 cd Desktop
-mkdir MyProject
+mkdir MyProject /n
 cd MyProject
 
 ## **Step 2: Clone the Repository**
