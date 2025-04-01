@@ -6,7 +6,7 @@ Task Manager
 ## **Step 1: Create a Folder**
 Run the following command in your terminal:
 
-cd Desktop
+cd Desktop/n
 mkdir MyProject
 cd MyProject
 
