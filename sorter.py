@@ -41,9 +41,9 @@ class DateSorter(Sorter):
         values = list(input_dict.values())
         while dict_counter < len(list_of_dates):
             task_iter = 0
-            title_to_match = list_of_dates[dict_counter]
+            date_to_match = list_of_dates[dict_counter]
             for task in input_dict.items():
-                if task.title == title_to_match:
+                if task[1].due_date == date_to_match:
                     sorted_dict[keys[task_iter]] = values[task_iter]
                     continue
                 else:

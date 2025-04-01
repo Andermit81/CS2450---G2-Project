@@ -285,18 +285,19 @@ def sort_button():
     dropdown.pack()
     
     
-    def press_sort(option=user_option.get()):
+    def press_sort():
+        print(task_man.tasks)
+        option = user_option.get()
         sorter = Sorter()
         if option == sort_options[0]:
             sorter = TitleSorter()
         elif option == sort_options[1]:
-            sorter == DateSorter()
+            sorter = DateSorter()
         elif option == sort_options[2]:
-            sorter == PrioritySorter()
+            sorter = PrioritySorter()
         else:
-            sorter == TagSorter()
+            sorter = TagSorter()
         task_man.tasks = sorter.sort_tasks(task_man.tasks)
-        print(task_man.tasks)
         task_man.view_tasks()
         display_tasks()
         sort_window.destroy()
