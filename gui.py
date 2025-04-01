@@ -10,6 +10,7 @@ from task import Task
 from task_manager import TaskManager
 from sorter import Sorter, TitleSorter, DateSorter, PrioritySorter
 from taskstorage import TaskStorage
+from filterer import Filterer, PriorityFilterer, CompleteFilterer, ShowAllFilterer, DefaultFilterer, TagFilterer
 
 # Colors
 BG_COLOR = "#F5F7FA"  # Main background
@@ -340,6 +341,41 @@ def sort_button():
         return
         
     sub_button = Button(sort_window, text = "Sort", command = press_sort)
+    sub_button.pack(padx=20, pady=20)
+    
+def filter_button():
+    filter_window = tk.Toplevel(root)
+    filter_window.title("Filter by:")
+    filter_window.geometry("300x400")
+    
+    filter_options = ["Priority", "Tag", "Non-Complete", "Completed", "All"]
+    
+    user_option = tk.StringVar()
+    user_option.set(filter_options[4])
+    
+    dropdown = OptionMenu(filter_window, user_option, *filter_options)
+    dropdown.pack()
+    
+    
+    def press_filter():
+        option = user_option.get()
+        filterer = Filterer()
+        if option == filter_options[0]:
+            filterer = PriorityFilterer()
+        elif option == filter_options[1]:
+            filterer = TagFilterer()
+        elif option == filter_options[2]:
+            filterer = ShowAllFilterer()
+        elif option == filter_options[3]:
+            filterer = DefaultFilterer()
+        else:
+            filterer = CompleteFilterer()
+        task_man.tasks = filterer.filter_tasks(task_man.tasks)
+        display_tasks()
+        filter_window.destroy()
+        return
+        
+    sub_button = Button(filter_window, text = "Filter", command = press_filter)
     sub_button.pack(padx=20, pady=20)
     
 

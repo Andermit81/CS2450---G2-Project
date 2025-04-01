@@ -27,8 +27,13 @@ class ShowAllFilterer(Filterer):
         for task in tasks.values():
             task.visible = True
     
-class DefaultFilter(Filterer):
+class DefaultFilterer(Filterer):
     def filter(tasks: dict):
         for task in tasks.values():
             task.visible = "Done" not in task.tags
+            
+class CompleteFilterer(Filterer):
+    def filter(tasks: dict):
+        for task in tasks.values():
+            task.visible = "Done" in task.tags
 
