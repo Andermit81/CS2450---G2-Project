@@ -1,7 +1,7 @@
 from task import Task
 import json
 
-class TaskStorage():
+class TaskEditor():
     def save_tasks(self, tasks):
         tasks_dict = {}
         for task_id in tasks:
