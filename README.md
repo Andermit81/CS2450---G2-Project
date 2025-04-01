@@ -37,7 +37,11 @@ source venv/bin/activate  # On Windows use: venv\Scripts\activate
 ```   
 
 ## **Step 4: Install Dependencies**
-Run the following command in your terminal:
+Run the following commands in your terminal:
+
+``` 
+cd CS2450---G2-Project
+```
 
 ``` 
 pip install -r requirements.txt  
