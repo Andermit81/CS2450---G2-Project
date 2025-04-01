@@ -75,6 +75,10 @@ task_area.columnconfigure(0, weight=1)
 columns = ("Title", "Priority", "Due Date", "Description", "Tags")
 task_tree = ttk.Treeview(task_area, columns=columns, show="headings", selectmode="browse", style="Treeview")
 
+# Configure Treeview tags
+task_tree.tag_configure("done", background="#D4EDDA", foreground="#155724")  # Green background for "Done" tasks
+task_tree.tag_configure("default", background=TASK_AREA_BG, foreground=TASK_TEXT_COLOR)  # Default style
+
 # Define column headings
 for col in columns:
     task_tree.heading(col, text=col)
@@ -114,8 +118,9 @@ def display_tasks():
     task_tree.delete(*task_tree.get_children())  # Clear existing data
 
     for task_id, task in task_man.tasks.items():
-        tags_str = ", ".join(sorted(task.tags)) if task.tags else "No tags"
-        task_tree.insert("", "end", iid=task_id, values=(task.title, task.priority, task.due_date, task.description, tags_str))
+        tags_str = ", ".join(sorted(task.tags)) if task.tags else ""
+        row_tag = "done" if "Done" in task.tags else "default"
+        task_tree.insert("", "end", iid=task_id, values=(task.title, task.priority, task.due_date, task.description, tags_str), tags=(row_tag))
     
     update_visualization()
 
@@ -244,6 +249,8 @@ def edit_button():
         tags_entry.delete(0, tk.END)
         tags_entry.insert(0, updated_tags)
 
+        display_tasks()
+
     def confirm_edit():
         new_title = title_entry.get().strip()
         new_description = desc_entry.get().strip()
@@ -259,8 +266,8 @@ def edit_button():
             task.due_date = new_due_date
         if new_priority in ["High", "Medium", "Low"]:
             task.priority = new_priority
-        if new_tags_input:
-            task.tags = [tag.strip() for tag in new_tags_input.split(",")]
+        
+        task.tags = [tag.strip() for tag in new_tags_input.split(",")] if new_tags_input else []
 
         display_tasks()
         edit_window.destroy()
