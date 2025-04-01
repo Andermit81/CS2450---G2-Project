@@ -7,8 +7,14 @@ Task Manager
 Run the following commands in your terminal:
 
 ```   
-cd Desktop  
-mkdir MyProject  
+cd Desktop
+```
+
+``` 
+mkdir MyProject
+```
+
+``` 
 cd MyProject  
 ``` 
 
@@ -23,7 +29,10 @@ git clone https://github.com/Andermit81/CS2450---G2-Project.git
 Run the following commands in your terminal:
 
 ``` 
-python -m venv venv  
+python -m venv venv
+```
+
+``` 
 source venv/bin/activate  # On Windows use: venv\Scripts\activate  
 ```   
 
