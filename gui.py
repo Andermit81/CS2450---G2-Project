@@ -362,8 +362,39 @@ def filter_button():
         filterer = Filterer()
         if option == filter_options[0]:
             filterer = PriorityFilterer()
+            filter_subwindow = tk.Toplevel(filter_window)
+            filter_subwindow.title("Pick priority")
+            filter_subwindow.geometry("150x200")
+            subfilter_options = ["High", "Medium", "Low"]
+            sub_option = tk.StringVar()
+            sub_option.set(subfilter_options[0])
+            subdropdown = OptionMenu(filter_subwindow, sub_option, *subfilter_options)
+            subdropdown.pack()
+            def press_priority():
+                option = sub_option.get()
+                task_man.tasks = filterer.filter(task_man.tasks, option)
+                display_tasks()
+                filter_subwindow.destroy()
+                return
+            
+            
         elif option == filter_options[1]:
             filterer = TagFilterer()
+            filter_subwindow = tk.Toplevel(filter_window)
+            filter_subwindow.title("Pick tag:")
+            filter_subwindow.geometry("150x200")
+            tag_choice = tk.Entry(filter_subwindow, width=30)
+            tag_choice.pack()            
+            def press_tags():
+                option = tag_choice.get()
+                task_man.tasks = filterer.filter(task_man.tasks, option)
+                display_tasks()
+                filter_subwindow.destroy()
+                return
+            subfilter_button = Button(filter_subwindow, "Submit", press_tags)
+            subfilter_button.pack()
+            
+            
         elif option == filter_options[2]:
             filterer = ShowAllFilterer()
         elif option == filter_options[3]:
