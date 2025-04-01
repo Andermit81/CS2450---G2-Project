@@ -4,7 +4,7 @@ Task Manager
 # How to Run This Task Manager
 
 ## **Step 1: Create a Folder**
-Run the following command in your terminal:
+Run the following commands in your terminal:
 
 cd Desktop  
 mkdir MyProject  
@@ -16,7 +16,7 @@ Run the following command in your terminal:
 git clone https://github.com/Andermit81/CS2450---G2-Project.git
 
 ## **Step 3: Create a Virtual Environment**
-Run the following command in your terminal:
+Run the following commands in your terminal:
 
 python -m venv venv  
 source venv/bin/activate  # On Windows use: venv\Scripts\activate  
