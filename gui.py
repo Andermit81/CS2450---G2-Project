@@ -1,3 +1,4 @@
+import sys
 import tkinter as tk
 
 from tkinter import ttk, messagebox, OptionMenu, Button, Label
@@ -29,6 +30,7 @@ root.configure(bg=BG_COLOR)
 # Function to handle window close
 def on_close():
     root.destroy()
+    sys.exit()
 
 root.protocol("WM_DELETE_WINDOW", on_close)
 
