@@ -342,7 +342,8 @@ def sort_button():
         
     sub_button = Button(sort_window, text = "Sort", command = press_sort)
     sub_button.pack(padx=20, pady=20)
-    
+
+'''    
 def filter_button():
     filter_window = tk.Toplevel(root)
     filter_window.title("Filter by:")
@@ -359,7 +360,6 @@ def filter_button():
     
     def press_filter():
         option = user_option.get()
-        filterer = Filterer()
         if option == filter_options[0]:
             filterer = PriorityFilterer()
             filter_subwindow = tk.Toplevel(filter_window)
@@ -375,7 +375,8 @@ def filter_button():
                 task_man.tasks = filterer.filter(task_man.tasks, option)
                 display_tasks()
                 filter_subwindow.destroy()
-                return
+            subfilter_button = Button(filter_subwindow, text = "Submit", command = press_priority)
+            subfilter_button.pack()
             
             
         elif option == filter_options[1]:
@@ -390,25 +391,26 @@ def filter_button():
                 task_man.tasks = filterer.filter(task_man.tasks, option)
                 display_tasks()
                 filter_subwindow.destroy()
-                return
-            subfilter_button = Button(filter_subwindow, "Submit", press_tags)
+            subfilter_button = Button(filter_subwindow, text ="Submit", command = press_tags)
             subfilter_button.pack()
             
             
         elif option == filter_options[2]:
             filterer = ShowAllFilterer()
+            task_man.tasks = filterer.filter(task_man.tasks)
         elif option == filter_options[3]:
             filterer = DefaultFilterer()
+            task_man.tasks = filterer.filter(task_man.tasks)
         else:
             filterer = CompleteFilterer()
-        task_man.tasks = filterer.filter_tasks(task_man.tasks)
+            task_man.tasks = filterer.filter(task_man.tasks)
         display_tasks()
         filter_window.destroy()
         return
         
     sub_button = Button(filter_window, text = "Filter", command = press_filter)
     sub_button.pack(padx=20, pady=20)
-    
+    '''
 
 # Sidebar Buttons
 buttons = [
@@ -417,7 +419,8 @@ buttons = [
     ("Delete Task", delete_button), 
     ("Save Tasks", save_button), 
     ("Load Tasks", load_button),
-    ("Sort Tasks", sort_button)
+    ("Sort Tasks", sort_button),
+    #("Filter Tasks", filter_button)
 ]
 
 for btn_text, command in buttons:
