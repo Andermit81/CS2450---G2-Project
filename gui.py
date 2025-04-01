@@ -7,7 +7,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 from task import Task
 from task_manager import TaskManager
-from sorter import Sorter, TagSorter, TitleSorter, DateSorter, PrioritySorter
+from sorter import Sorter, TitleSorter, DateSorter, PrioritySorter
 
 # Colors
 BG_COLOR = "#F5F7FA"  # Main background
