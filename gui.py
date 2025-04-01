@@ -1,5 +1,10 @@
 import tkinter as tk
+
 from tkinter import ttk, messagebox, OptionMenu, Button, Label
+
+from task_visualizer import TaskVisualizer
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
 from task import Task
 from task_manager import TaskManager
 from sorter import Sorter, TagSorter, TitleSorter, DateSorter, PrioritySorter
@@ -51,9 +56,14 @@ def on_hover(event):
 def on_leave(event):
     event.widget.config(bg=BUTTON_COLOR)
 
-# Task Area (Right Side)
+# Main Task Area (Right Side) - Using grid layout
 task_area = tk.Frame(root, bg=TASK_AREA_BG)
 task_area.pack(side="right", expand=True, fill="both", padx=10, pady=10)
+
+# Configure grid weights
+task_area.rowconfigure(0, weight=1)  # Treeview will expand
+task_area.rowconfigure(1, weight=0)  # Visualization has fixed height
+task_area.columnconfigure(0, weight=1)
 
 # Task Display (Treeview)
 columns = ("Title", "Priority", "Due Date", "Description", "Tags")
@@ -64,27 +74,44 @@ for col in columns:
     task_tree.heading(col, text=col)
     task_tree.column(col, anchor="w", width=150)
 
-# Add the Treeview to the task area
-task_tree.grid(row=1, column=0, columnspan=4, sticky="nsew")
+# Add the Treeview to the task area (row 0)
+task_tree.grid(row=0, column=0, columnspan=4, sticky="nsew")
 
 # Scrollbar for Treeview
 scrollbar = ttk.Scrollbar(task_area, orient="vertical", command=task_tree.yview)
-task_tree.configure(yscrollcommand=scrollbar.set)  # Bind the scrollbar to the Treeview
-scrollbar.grid(row=1, column=4, sticky="ns")
+task_tree.configure(yscrollcommand=scrollbar.set)
+scrollbar.grid(row=0, column=4, sticky="ns")
 
-# Ensure columns expand equally
-task_area.columnconfigure(0, weight=1)
-task_area.columnconfigure(1, weight=1)
-task_area.columnconfigure(2, weight=1)
-task_area.columnconfigure(3, weight=1)
+# Visualization Panel (row 1)
+viz_panel = tk.Frame(task_area, bg=TASK_AREA_BG, height=200)
+viz_panel.grid(row=1, column=0, columnspan=5, sticky="nsew", pady=(10, 0))
 
-# Function to Display Tasks in Treeview
+# Initialize the visualizer
+task_visualizer = TaskVisualizer(task_man)
+viz_widget = None
+
+def update_visualization():
+    """Updates the visualization panel with current task data"""
+    global viz_widget
+    
+    # Clear any existing visualization
+    for widget in viz_panel.winfo_children():
+        widget.destroy()
+    
+    # Create new visualization (either pie chart or "no tasks" message)
+    viz_widget = task_visualizer.create_pie_chart(viz_panel)
+    if viz_widget:  # Only pack if we got a widget back
+        viz_widget.pack(fill="both", expand=True)
+
 def display_tasks():
+    """Updates both the task list and visualization"""
     task_tree.delete(*task_tree.get_children())  # Clear existing data
 
     for task_id, task in task_man.tasks.items():
         tags_str = ", ".join(sorted(task.tags)) if task.tags else "No tags"
         task_tree.insert("", "end", iid=task_id, values=(task.title, task.priority, task.due_date, task.description, tags_str))
+    
+    update_visualization()
 
 # Function to Add Task
 def add_button():
@@ -153,13 +180,12 @@ def delete_button():
     
     for item in selected_item:
         task_id = item
-
         if task_id in task_man.tasks:
             task_man.remove_task(task_id)
-        
         task_tree.delete(item)
+    display_tasks()  # Update visualization after deletion
 
-#Function to edit task
+# Function to edit task
 def edit_button():
     selected_item = task_tree.selection()
     if not selected_item:
@@ -179,7 +205,7 @@ def edit_button():
 
     tk.Label(edit_window, text="Title:").pack(pady=5)
     title_entry = tk.Entry(edit_window)
-    title_entry.insert(0, task.title) #Pre-fill with existing data
+    title_entry.insert(0, task.title)
     title_entry.pack(pady=5)
 
     tk.Label(edit_window, text="Description:").pack(pady=5)
@@ -219,7 +245,6 @@ def edit_button():
         new_priority= priority_var.get().strip()
         new_tags_input = tags_entry.get().strip()
 
-        # Update task fields
         if new_title:
             task.title = new_title
         if new_description:
@@ -238,7 +263,7 @@ def edit_button():
     tk.Button(edit_window, text="Mark as Done", command=toggle_done_tag).pack(pady=5)
     tk.Button(edit_window, text="Save Changes", command=confirm_edit).pack(pady=10)
 
-# Placeholder Save/Load Functions
+# Save/Load Functions
 def save_button():
     print("Saving tasks...")
     task_man.save_tasks()
@@ -298,10 +323,11 @@ buttons = [
 for btn_text, command in buttons:
     btn = tk.Button(sidebar, text=btn_text, bg=BUTTON_COLOR, fg=TEXT_COLOR, bd=0, relief="flat", height=2, command=command)
     btn.pack(fill="x", padx=15, pady=25)
-    
-    # Bind hover effects
     btn.bind("<Enter>", on_hover)
     btn.bind("<Leave>", on_leave)
+
+# Initial display
+display_tasks()
 
 # Run App
 root.mainloop()
