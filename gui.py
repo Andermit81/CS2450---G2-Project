@@ -298,7 +298,6 @@ def sort_button():
         else:
             sorter = TagSorter()
         task_man.tasks = sorter.sort_tasks(task_man.tasks)
-        task_man.view_tasks()
         display_tasks()
         sort_window.destroy()
         return
