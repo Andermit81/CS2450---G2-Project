@@ -133,6 +133,8 @@ def add_button():
     add_window.title("Add Task")
     add_window.geometry("300x450")
 
+    add_window.grab_set()
+
     tk.Label(add_window, text="Title:").pack(pady=5)
     title_entry = tk.Entry(add_window)
     title_entry.pack(pady=5)
@@ -226,6 +228,8 @@ def edit_button():
     edit_window = tk.Toplevel(root)
     edit_window.title("Edit Task")
     edit_window.geometry("300x450")
+
+    edit_window.grab_set()
 
     tk.Label(edit_window, text="Title:").pack(pady=5)
     title_entry = tk.Entry(edit_window)
