@@ -265,15 +265,11 @@ def edit_button():
 
 # Save/Load Functions
 def save_button():
-    print("Saving tasks...")
     task_man.save_tasks()
-    print("Tasks saved!")
 
 def load_button():
-    print("Loading tasks...")
     task_man.load_tasks()
     display_tasks()
-    print("Tasks loaded!")
     
 def sort_button():
     sort_window = tk.Toplevel(root)
