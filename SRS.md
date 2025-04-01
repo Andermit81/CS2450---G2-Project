@@ -129,3 +129,7 @@ Conform to agreed-upon syntax, keywords, and terms.
 
  Availability – The system shall maintain an uptime of at least 99.9%, ensuring users have consistent access to their tasks and data with minimal 
   downtime.
+
+### 4. Additional Features
+
+Added a Sorting feature that allows users to sort their task list by priority, title, or due date.
