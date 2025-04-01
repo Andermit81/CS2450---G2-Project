@@ -53,20 +53,25 @@ class DateSorter(Sorter):
         return sorted_dict
     
 class PrioritySorter(Sorter):
+    
+    def priority_sort(self, priority):
+        criteria = ["High", "Medium", "Low"]
+        return criteria.index(priority)
+    
     def sort_tasks(self, input_dict: dict, descending: bool = False) -> dict:
         list_of_priorities = []
         for task_item in input_dict.values():
             list_of_priorities.append(task_item.priority)
-        list_of_priorities.sort(reverse=descending)
+        list_of_priorities.sort(reverse=descending, key=self.priority_sort)
         sorted_dict = {}
         dict_counter = 0
         keys = list(input_dict.keys())
         values = list(input_dict.values())
         while dict_counter < len(list_of_priorities):
             task_iter = 0
-            title_to_match = list_of_priorities[dict_counter]
+            priority_to_match = list_of_priorities[dict_counter]
             for task in input_dict.items():
-                if task.title == title_to_match:
+                if task[1].priority == priority_to_match and task[1] not in sorted_dict.values():
                     sorted_dict[keys[task_iter]] = values[task_iter]
                     continue
                 else:
