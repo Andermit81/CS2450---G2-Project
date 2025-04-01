@@ -276,7 +276,7 @@ def sort_button():
     sort_window.title("Sort By")
     sort_window.geometry("300x400")
     
-    sort_options = ["Title", "Date", "Priority", "Tag"]
+    sort_options = ["Title", "Date", "Priority"]
     
     user_option = tk.StringVar()
     user_option.set(sort_options[0])
@@ -295,8 +295,6 @@ def sort_button():
             sorter = DateSorter()
         elif option == sort_options[2]:
             sorter = PrioritySorter()
-        else:
-            sorter = TagSorter()
         task_man.tasks = sorter.sort_tasks(task_man.tasks)
         display_tasks()
         sort_window.destroy()
