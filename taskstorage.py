@@ -11,7 +11,6 @@ class TaskStorage():
         task_json = json.dumps(tasks_dict)
         with open("tasklist.json", 'w') as tasks_file:
             tasks_file.writelines(task_json)
-        print("Tasks saved!")
     
     def load_tasks(self, task_man):
         try:
@@ -27,6 +26,5 @@ class TaskStorage():
                     added_task.priority = tasks_dict[taskitem_id][3]
                     added_task.tags = tasks_dict[taskitem_id][4]
                     task_man.tasks[taskitem_id] = added_task
-            print("Tasks loaded successfully!")
         except:
-            print("No tasks found, are you sure a tasklist.json exists?")
+            raise FileNotFoundError
