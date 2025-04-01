@@ -1,6 +1,5 @@
 from task import Task
 from taskstorage import TaskStorage 
-from task_editor import TaskEditor
 import json
 
 class TaskManager:
@@ -34,4 +33,3 @@ class TaskManager:
         
         task = self.tasks[task_id]
         
-        TaskEditor.edit(task) 
