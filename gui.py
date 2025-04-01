@@ -1,7 +1,8 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, OptionMenu, Button, Label
 from task import Task
 from task_manager import TaskManager
+from sorter import Sorter, TagSorter, TitleSorter, DateSorter, PrioritySorter
 
 # Colors
 BG_COLOR = "#F5F7FA"  # Main background
@@ -248,6 +249,41 @@ def load_button():
     task_man.load_tasks()
     display_tasks()
     print("Tasks loaded!")
+    
+def sort_button():
+    sort_window = tk.Toplevel(root)
+    sort_window.title("Sort By")
+    sort_window.geometry("300x400")
+    
+    sort_options = ["Title", "Date", "Priority", "Tag"]
+    
+    user_option = tk.StringVar()
+    user_option.set(sort_options[0])
+    
+    dropdown = OptionMenu(sort_window, user_option, *sort_options)
+    dropdown.pack()
+    
+    
+    def press_sort(option=user_option.get()):
+        sorter = Sorter()
+        if option == sort_options[0]:
+            sorter = TitleSorter()
+        elif option == sort_options[1]:
+            sorter == DateSorter()
+        elif option == sort_options[2]:
+            sorter == PrioritySorter()
+        else:
+            sorter == TagSorter()
+        task_man.tasks = sorter.sort_tasks(task_man.tasks)
+        print(task_man.tasks)
+        task_man.view_tasks()
+        display_tasks()
+        sort_window.destroy()
+        return
+        
+    sub_button = Button(sort_window, text = "Sort", command = press_sort)
+    sub_button.pack(padx=20, pady=20)
+    
 
 # Sidebar Buttons
 buttons = [
@@ -255,7 +291,8 @@ buttons = [
     ("Edit Task", edit_button),
     ("Delete Task", delete_button), 
     ("Save Tasks", save_button), 
-    ("Load Tasks", load_button)
+    ("Load Tasks", load_button),
+    ("Sort Tasks", sort_button)
 ]
 
 for btn_text, command in buttons:
