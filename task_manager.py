@@ -1,6 +1,5 @@
 from task import Task
 from taskstorage import TaskStorage 
-from task_editor import TaskEditor
 import json
 
 class TaskManager:
