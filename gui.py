@@ -25,6 +25,12 @@ root.title("Task Manager")
 root.geometry("1000x600")
 root.configure(bg=BG_COLOR)
 
+# Function to handle window close
+def on_close():
+    root.destroy()
+
+root.protocol("WM_DELETE_WINDOW", on_close)
+
 # Treeview Styling
 style = ttk.Style()
 style.theme_use("default")  # Use the default theme as a base
