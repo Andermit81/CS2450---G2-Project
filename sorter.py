@@ -20,7 +20,7 @@ class TitleSorter(Sorter):
             task_iter = 0
             title_to_match = list_of_titles[dict_counter]
             for task in input_dict.items():
-                if task.title == title_to_match:
+                if task[1].title == title_to_match:
                     sorted_dict[keys[task_iter]] = values[task_iter]
                     continue
                 else:
@@ -85,7 +85,9 @@ class TagSorter(Sorter):
         dict_counter = 0
         keys = list(input_dict.keys())
         values = list(input_dict.values())
+        print(len(list_of_titles))
         while dict_counter < len(list_of_titles):
+            print("New while loop")
             task_iter = 0
             title_to_match = list_of_titles[dict_counter]
             for task in input_dict.items():
