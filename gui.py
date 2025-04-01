@@ -161,11 +161,15 @@ def add_button():
     tags_entry.pack(pady=5)
 
     def add_done_tag():
-        current_tags = tags_entry.get()
-        if "Done" not in current_tags.split(","):
-            updated_tags = f"{current_tags}, Done" if current_tags else "Done"
-            tags_entry.delete(0, tk.END)
-            tags_entry.insert(0, updated_tags)
+        current_tags = tags_entry.get().split(",")
+        current_tags = [tag.strip() for tag in current_tags if tag.strip()]  # Clean up whitespace
+        if "Done" in current_tags:
+            current_tags.remove("Done")  # Remove "Done" if it exists
+        else:
+            current_tags.append("Done")  # Add "Done" if it doesn't exist
+        updated_tags = ", ".join(current_tags)
+        tags_entry.delete(0, tk.END)
+        tags_entry.insert(0, updated_tags)
 
     def confirm():
         title = title_entry.get()
@@ -256,11 +260,12 @@ def edit_button():
 
     def toggle_done_tag():
         current_tags = tags_entry.get().split(",")
+        current_tags = [tag.strip() for tag in current_tags if tag.strip()]  # Clean up whitespace
         if "Done" in current_tags:
-            current_tags.remove("Done")
+            current_tags.remove("Done")  # Remove "Done" if it exists
         else:
-            current_tags.append("Done")
-        updated_tags = ", ".join(tag.strip() for tag in current_tags if tag.strip())
+            current_tags.append("Done")  # Add "Done" if it doesn't exist
+        updated_tags = ", ".join(current_tags)
         tags_entry.delete(0, tk.END)
         tags_entry.insert(0, updated_tags)
 
