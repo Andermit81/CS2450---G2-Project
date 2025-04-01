@@ -8,6 +8,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from task import Task
 from task_manager import TaskManager
 from sorter import Sorter, TitleSorter, DateSorter, PrioritySorter
+from taskstorage import TaskStorage
 
 # Colors
 BG_COLOR = "#F5F7FA"  # Main background
@@ -278,10 +279,12 @@ def edit_button():
 
 # Save/Load Functions
 def save_button():
-    task_man.save_tasks()
+    storage_handler = TaskStorage()
+    storage_handler.save_tasks(task_man.tasks)
 
 def load_button():
-    task_man.load_tasks()
+    storage_handler = TaskStorage()
+    storage_handler.load_tasks(task_man)
     display_tasks()
     
 def sort_button():
