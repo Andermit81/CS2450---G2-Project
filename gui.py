@@ -117,7 +117,7 @@ def display_tasks():
 def add_button():
     add_window = tk.Toplevel(root)
     add_window.title("Add Task")
-    add_window.geometry("300x400")
+    add_window.geometry("300x450")
 
     tk.Label(add_window, text="Title:").pack(pady=5)
     title_entry = tk.Entry(add_window)
@@ -201,7 +201,7 @@ def edit_button():
         
     edit_window = tk.Toplevel(root)
     edit_window.title("Edit Task")
-    edit_window.geometry("300x400")
+    edit_window.geometry("300x450")
 
     tk.Label(edit_window, text="Title:").pack(pady=5)
     title_entry = tk.Entry(edit_window)
