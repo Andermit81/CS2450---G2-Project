@@ -22,7 +22,7 @@ HEADER_COLOR = "#1ABC9C"  # Table header color
 # Initialize App
 root = tk.Tk()
 root.title("Task Manager")
-root.geometry("1000x500")
+root.geometry("1000x600")
 root.configure(bg=BG_COLOR)
 
 # Treeview Styling
