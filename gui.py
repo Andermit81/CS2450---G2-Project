@@ -168,8 +168,10 @@ def add_button():
         current_tags = [tag.strip() for tag in current_tags if tag.strip()]  # Clean up whitespace
         if "Done" in current_tags:
             current_tags.remove("Done")  # Remove "Done" if it exists
+            done_button.config(text="Mark as Done")
         else:
             current_tags.append("Done")  # Add "Done" if it doesn't exist
+            done_button.config(text="Unmark as Done")
         updated_tags = ", ".join(current_tags)
         tags_entry.delete(0, tk.END)
         tags_entry.insert(0, updated_tags)
@@ -191,7 +193,11 @@ def add_button():
         display_tasks()
         add_window.destroy()
     
-    tk.Button(add_window, text="Mark as Done", command=add_done_tag).pack(pady=5)
+    # Create the "Mark as Done" button
+    done_button = tk.Button(add_window, text="Mark as Done", command=add_done_tag)
+    done_button.pack(pady=5)
+
+    # Create the "Confirm" button
     tk.Button(add_window, text="Confirm", command=confirm).pack(pady=10)
 
 # Function to Delete Task
@@ -268,13 +274,13 @@ def edit_button():
         current_tags = [tag.strip() for tag in current_tags if tag.strip()]  # Clean up whitespace
         if "Done" in current_tags:
             current_tags.remove("Done")  # Remove "Done" if it exists
+            done_button.config(text="Mark as Done")
         else:
             current_tags.append("Done")  # Add "Done" if it doesn't exist
+            done_button.config(text="Unmark as Done")
         updated_tags = ", ".join(current_tags)
         tags_entry.delete(0, tk.END)
         tags_entry.insert(0, updated_tags)
-
-        display_tasks()
 
     def confirm_edit():
         new_title = title_entry.get().strip()
@@ -298,7 +304,12 @@ def edit_button():
         edit_window.destroy()
         messagebox.showinfo("Success", "Task updated successfully!")
 
-    tk.Button(edit_window, text="Mark as Done", command=toggle_done_tag).pack(pady=5)
+    # Create the "Mark as Done" button
+    initial_button_text = "Unmark as Done" if "Done" in task.tags else "Mark as Done"
+    done_button = tk.Button(edit_window, text=initial_button_text, command=toggle_done_tag)
+    done_button.pack(pady=5)
+
+    # Create the "Save Changes" button
     tk.Button(edit_window, text="Save Changes", command=confirm_edit).pack(pady=10)
 
 # Save/Load Functions
