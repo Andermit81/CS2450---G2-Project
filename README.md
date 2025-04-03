@@ -3,7 +3,7 @@
 ## About the Project
 G2's Task Manager is a simple python application that cleanly and clearly presents added tasks back to the user  
 
-###Key Features  
+### Key Features  
 -Add new tasks with descriptions and due dates  
 -Edit existing tasks to update details  
 -Mark tasks as complete/incomplete  
