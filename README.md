@@ -1,5 +1,16 @@
 # CS2450---G2-Project
-Task Manager 
+
+## About the Project
+G2's Task Manager is a simple python application that cleanly and clearly presents added tasks back to the user  
+
+###Key Features  
+-Add new tasks with descriptions and due dates  
+-Edit existing tasks to update details  
+-Mark tasks as complete/incomplete  
+-Delete tasks you no longer need  
+-Give tasks custom tags  
+-Sort and filter tasks by tags  
+-Visualize task completeness  
 
 ## How to Run the Project
 
