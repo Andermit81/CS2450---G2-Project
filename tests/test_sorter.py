@@ -1,8 +1,8 @@
-from sorter import Sorter, TitleSorter, DateSorter, PrioritySorter
+from src.sorter import Sorter, TitleSorter, DateSorter, PrioritySorter
 
-from task_manager import TaskManager
+from src.task_manager import TaskManager
 
-from task import Task
+from src.task import Task
 
 title_sorter = TitleSorter()
 date_sorter = DateSorter()

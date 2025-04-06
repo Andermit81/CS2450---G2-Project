@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-import task, task_manager
+import task as task, task_manager as task_manager
 
 class Filterer(ABC):
     @abstractmethod
