@@ -1,5 +1,5 @@
-from task import Task
-from task_manager import TaskManager
+from src.task import Task
+from src.task_manager import TaskManager
 import unittest
 
 class TestTaskTags(unittest.TestCase):

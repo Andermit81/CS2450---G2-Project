@@ -1,6 +1,6 @@
 import unittest
-from task import Task
-from task_manager import TaskManager
+from src.task import Task
+from src.task_manager import TaskManager
 from copy import deepcopy
 
 class TestTaskManager(unittest.TestCase):
