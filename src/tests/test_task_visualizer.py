@@ -1,6 +1,6 @@
-from src.task import Task
-from src.task_manager import TaskManager
-from src.task_visualizer import TaskVisualizer
+from ..cli.task import Task
+from ..cli.task_manager import TaskManager
+from ..gui.task_visualizer import TaskVisualizer
 import unittest
 import matplotlib
 matplotlib.use('Agg')  

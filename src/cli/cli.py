@@ -1,8 +1,8 @@
 # CLI Prototype for Milestone 2
 
 import json
-from task import Task
-from task_manager import TaskManager
+from .task import Task
+from .task_manager import TaskManager
 
 def main():
     task_man = TaskManager()

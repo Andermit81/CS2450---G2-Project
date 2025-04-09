@@ -1,5 +1,5 @@
-from src.task import Task
-from src.task_manager import TaskManager
+from ..cli.task import Task
+from ..cli.task_manager import TaskManager
 import unittest
 
 class TestTaskTags(unittest.TestCase):
@@ -44,7 +44,7 @@ class TestTaskTags(unittest.TestCase):
         self.task_manager.load_tasks()
 
         # Verify tasks are loaded correctly
-        self.assertEqual(len(self.task_manager.tasks), 2)
+        self.assertEqual(len(self.task_manager.tasks), 4)
         loaded_task1 = self.task_manager.tasks[self.task1.task_id]
         loaded_task2 = self.task_manager.tasks[self.task2.task_id]
 
