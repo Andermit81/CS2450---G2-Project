@@ -1,6 +1,6 @@
 # test_task.py
 import unittest
-from src.task import Task
+from ..cli.task import Task
 
 class TestTask(unittest.TestCase):
     def setUp(self):

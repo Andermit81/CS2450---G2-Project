@@ -1,4 +1,5 @@
-import task as task, task_manager as task_manager
+from ..cli.task import Task as task
+from ..cli.task_manager import TaskManager as task_manager
 from abc import ABC, abstractmethod
 
 class Sorter:

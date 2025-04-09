@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
-from task_manager import TaskManager
+from ..cli.task_manager import TaskManager
 
 TASK_AREA_BG = "#ECF0F1"
 

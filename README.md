@@ -62,5 +62,5 @@ pip install -r requirements.txt
 Run the following command in your terminal:
 
 ```
-python gui.py  
+python -m src.gui.gui 
 ```

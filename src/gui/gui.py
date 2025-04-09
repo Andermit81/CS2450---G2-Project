@@ -3,14 +3,14 @@ import tkinter as tk
 
 from tkinter import ttk, messagebox, OptionMenu, Button, Label
 
-from task_visualizer import TaskVisualizer
+from .task_visualizer import TaskVisualizer
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-from task import Task
-from task_manager import TaskManager
-from sorter import Sorter, TitleSorter, DateSorter, PrioritySorter
-from taskstorage import TaskStorage
-from filterer import Filterer, PriorityFilterer, CompleteFilterer, ShowAllFilterer, DefaultFilterer, TagFilterer
+from ..cli.task import Task
+from ..cli.task_manager import TaskManager
+from .sorter import Sorter, TitleSorter, DateSorter, PrioritySorter
+from ..cli.taskstorage import TaskStorage
+from .filterer import Filterer, PriorityFilterer, CompleteFilterer, ShowAllFilterer, DefaultFilterer, TagFilterer
 
 # Colors
 BG_COLOR = "#F5F7FA"  # Main background
