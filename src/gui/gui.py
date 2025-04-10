@@ -12,16 +12,21 @@ from ..cli.task_manager import TaskManager
 from .sorter import Sorter, TitleSorter, DateSorter, PrioritySorter
 from ..cli.taskstorage import TaskStorage
 from .filterer import Filterer, PriorityFilterer, CompleteFilterer, ShowAllFilterer, DefaultFilterer, TagFilterer
+from .colors import (
+    BG_COLOR,
+    SIDEBAR_COLOR,
+    BUTTON_COLOR,
+    BUTTON_HOVER,
+    TEXT_COLOR,
+    TASK_AREA_BG,
+    TASK_TEXT_COLOR,
+    HEADER_COLOR
+)
+from .treeview_style import configure_treeview_styles
+from .add_task import AddTaskHandler
+from .delete_task import DeleteTaskHandler
+from .edit_task import EditTaskHandler
 
-# Colors
-BG_COLOR = "#F5F7FA"  # Main background
-SIDEBAR_COLOR = "#2C3E50"  # Sidebar background
-BUTTON_COLOR = "#34495E"  # Button color
-BUTTON_HOVER = "#1ABC9C"  # Button hover
-TEXT_COLOR = "black"  # Sidebar text
-TASK_AREA_BG = "#ECF0F1"  # Task area background
-TASK_TEXT_COLOR = "#333333"  # Task text
-HEADER_COLOR = "#1ABC9C"  # Table header color
 
 # Initialize App
 root = tk.Tk()
@@ -29,29 +34,15 @@ root.title("Task Manager")
 root.geometry("1000x600")
 root.configure(bg=BG_COLOR)
 
+# configures the treeview styles
+configure_treeview_styles()
+
 # Function to handle window close
 def on_close():
     root.destroy()
     sys.exit()
 
 root.protocol("WM_DELETE_WINDOW", on_close)
-
-# Treeview Styling
-style = ttk.Style()
-style.theme_use("default")  # Use the default theme as a base
-
-# Configure Treeview style
-style.configure("Treeview",
-                background=TASK_AREA_BG,
-                foreground=TASK_TEXT_COLOR,
-                fieldbackground=BG_COLOR,
-                rowheight=25,
-                font=('Arial', 15))
-
-style.configure("Treeview.Heading",
-                background=HEADER_COLOR,
-                foreground="black",
-                font=('Arial', 15, 'bold'))
 
 # Sidebar (Left Panel)
 sidebar = tk.Frame(root, bg=SIDEBAR_COLOR, width=200)
@@ -129,177 +120,18 @@ def display_tasks():
     
     update_visualization()
 
-# Function to Add Task
+# Implements the add button and all of its logic from AddTaskDialog Class
 def add_button():
-    add_window = tk.Toplevel(root)
-    add_window.title("Add Task")
-    add_window.geometry("300x575")
+    AddTaskHandler(root, task_man, display_tasks)
 
-    add_window.grab_set()
-
-    tk.Label(add_window, text="Title:").pack(pady=5)
-    title_entry = tk.Entry(add_window)
-    title_entry.pack(pady=5)
-
-    tk.Label(add_window, text="Description:").pack(pady=5)
-    desc_entry = tk.Entry(add_window)
-    desc_entry.pack(pady=5)
-
-    tk.Label(add_window, text="Due Date:").pack(pady=5)
-    calendar = Calendar(add_window, selectmode='day', date_pattern="yyyy-mm-dd")
-    calendar.pack(pady=5)
-
-    tk.Label(add_window, text="Priority:").pack(pady=5)
-    priority_var = tk.StringVar(value="Medium")
-    priority_menu = tk.OptionMenu(add_window, priority_var, "High", "Medium", "Low")
-    priority_menu.pack(pady=5)
-
-    tk.Label(add_window, text="Tags (comma-separated):").pack(pady=5)
-    tags_entry = tk.Entry(add_window)
-    tags_entry.pack(pady=5)
-
-    def add_done_tag():
-        current_tags = tags_entry.get().split(",")
-        current_tags = [tag.strip() for tag in current_tags if tag.strip()]  # Clean up whitespace
-        if "Done" in current_tags:
-            current_tags.remove("Done")  # Remove "Done" if it exists
-            done_button.config(text="Mark as Done")
-        else:
-            current_tags.append("Done")  # Add "Done" if it doesn't exist
-            done_button.config(text="Unmark as Done")
-        updated_tags = ", ".join(current_tags)
-        tags_entry.delete(0, tk.END)
-        tags_entry.insert(0, updated_tags)
-
-    def confirm():
-        title = title_entry.get()
-        description = desc_entry.get()
-        due_date = calendar.get_date()
-        priority = priority_var.get()
-        tags_input = tags_entry.get()
-        tags = [tag.strip() for tag in tags_input.split(",")] if tags_input else []
-
-        if not title.strip():
-            messagebox.showwarning("Input Error", "Title is required!")
-            return
-        
-        new_task = Task(title, description, due_date, priority, tags)
-        task_man.add_task(new_task)
-        display_tasks()
-        add_window.destroy()
-    
-    # Create the "Mark as Done" button
-    done_button = tk.Button(add_window, text="Mark as Done", command=add_done_tag)
-    done_button.pack(pady=5)
-
-    # Create the "Confirm" button
-    tk.Button(add_window, text="Confirm", command=confirm).pack(pady=10)
-
-# Function to Delete Task
+# Implements the delete button and all the logic from DeleteTaskHandler
 def delete_button():
-    selected_item = task_tree.selection()
-    if not selected_item:
-        messagebox.showwarning("Warning", "Please select a task to delete!")
-        return
+    DeleteTaskHandler(task_tree, task_man, display_tasks).execute()
 
-    confirm = messagebox.askyesno("Confirm Deletion", "Are you sure you want to delete this task?")
-    if not confirm:
-        return
-    
-    for item in selected_item:
-        task_id = item
-        if task_id in task_man.tasks:
-            task_man.remove_task(task_id)
-        task_tree.delete(item)
-    display_tasks()  # Update visualization after deletion
-
-# Function to edit task
+# Implemetns the edit button and all the logic from EditTaskHandler
 def edit_button():
-    selected_item = task_tree.selection()
-    if not selected_item:
-        messagebox.showwarning("Warning", "Please select a task to edit!")
-        return
-        
-    task_id = selected_item[0]
-    task = task_man.tasks.get(task_id)
-
-    if not task:
-        messagebox.showerror("Error", "Task not found!")
-        return
-        
-    edit_window = tk.Toplevel(root)
-    edit_window.title("Edit Task")
-    edit_window.geometry("300x575")
-
-    edit_window.grab_set()
-
-    tk.Label(edit_window, text="Title:").pack(pady=5)
-    title_entry = tk.Entry(edit_window)
-    title_entry.insert(0, task.title)
-    title_entry.pack(pady=5)
-
-    tk.Label(edit_window, text="Description:").pack(pady=5)
-    desc_entry = tk.Entry(edit_window)
-    desc_entry.insert(0, task.description)
-    desc_entry.pack(pady=5)
-
-    tk.Label(edit_window, text="Due Date:").pack(pady=5)
-    calendar = Calendar(edit_window, selectmode='day', date_pattern="yyyy-mm-dd")
-    calendar.pack(pady=5)
-
-    tk.Label(edit_window, text="Priority:").pack(pady=5)
-    priority_var = tk.StringVar(value=task.priority)
-    priority_menu = tk.OptionMenu(edit_window, priority_var, "High", "Medium", "Low")
-    priority_menu.pack(pady=5)
-
-    tk.Label(edit_window, text="Tags (comma-separated):").pack(pady=5)
-    tags_entry = tk.Entry(edit_window)
-    tags_entry.insert(0, ", ".join(task.tags) if task.tags else "")
-    tags_entry.pack(pady=5)
-
-    def toggle_done_tag():
-        current_tags = tags_entry.get().split(",")
-        current_tags = [tag.strip() for tag in current_tags if tag.strip()]  # Clean up whitespace
-        if "Done" in current_tags:
-            current_tags.remove("Done")  # Remove "Done" if it exists
-            done_button.config(text="Mark as Done")
-        else:
-            current_tags.append("Done")  # Add "Done" if it doesn't exist
-            done_button.config(text="Unmark as Done")
-        updated_tags = ", ".join(current_tags)
-        tags_entry.delete(0, tk.END)
-        tags_entry.insert(0, updated_tags)
-
-    def confirm_edit():
-        new_title = title_entry.get().strip()
-        new_description = desc_entry.get().strip()
-        new_due_date = calendar.get_date().strip()
-        new_priority= priority_var.get().strip()
-        new_tags_input = tags_entry.get().strip()
-
-        if new_title:
-            task.title = new_title
-        if new_description:
-            task.description = new_description
-        if new_due_date:
-            task.due_date = new_due_date
-        if new_priority in ["High", "Medium", "Low"]:
-            task.priority = new_priority
-        
-        task.tags = [tag.strip() for tag in new_tags_input.split(",")] if new_tags_input else []
-
-        display_tasks()
-        edit_window.destroy()
-        messagebox.showinfo("Success", "Task updated successfully!")
-
-    # Create the "Mark as Done" button
-    initial_button_text = "Unmark as Done" if "Done" in task.tags else "Mark as Done"
-    done_button = tk.Button(edit_window, text=initial_button_text, command=toggle_done_tag)
-    done_button.pack(pady=5)
-
-    # Create the "Save Changes" button
-    tk.Button(edit_window, text="Save Changes", command=confirm_edit).pack(pady=10)
-
+    EditTaskHandler(root, task_tree, task_man, display_tasks)
+    
 # Save/Load Functions
 def save_button():
     storage_handler = TaskStorage()
@@ -309,7 +141,8 @@ def load_button():
     storage_handler = TaskStorage()
     storage_handler.load_tasks(task_man)
     display_tasks()
-    
+
+# Sort Function
 def sort_button():
     sort_window = tk.Toplevel(root)
     sort_window.title("Sort By")
@@ -430,6 +263,10 @@ for btn_text, command in buttons:
 
 # Initial display
 display_tasks()
+
+# Run App
+root.mainloop()
+
 
 # Run App
 root.mainloop()
