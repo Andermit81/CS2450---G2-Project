@@ -2,6 +2,7 @@ import sys
 import tkinter as tk
 
 from tkinter import ttk, messagebox, OptionMenu, Button, Label
+from tkcalendar import Calendar
 
 from .task_visualizer import TaskVisualizer
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -132,7 +133,7 @@ def display_tasks():
 def add_button():
     add_window = tk.Toplevel(root)
     add_window.title("Add Task")
-    add_window.geometry("300x450")
+    add_window.geometry("300x575")
 
     add_window.grab_set()
 
@@ -144,15 +145,9 @@ def add_button():
     desc_entry = tk.Entry(add_window)
     desc_entry.pack(pady=5)
 
-    #Validation for Due Date
-    def validate_date_date_input(new_value):
-        return all(char.isdigit() or char == "-" for char in new_value) and len(new_value) <= 10
-    
-    vcmd = (root.register(validate_date_date_input), '%P')
-
-    tk.Label(add_window, text="Due Date (YYYY-MM-DD):").pack(pady=5)
-    due_date_entry = tk.Entry(add_window, validate="key", validatecommand=vcmd)
-    due_date_entry.pack(pady=5)
+    tk.Label(add_window, text="Due Date:").pack(pady=5)
+    calendar = Calendar(add_window, selectmode='day', date_pattern="yyyy-mm-dd")
+    calendar.pack(pady=5)
 
     tk.Label(add_window, text="Priority:").pack(pady=5)
     priority_var = tk.StringVar(value="Medium")
@@ -179,7 +174,7 @@ def add_button():
     def confirm():
         title = title_entry.get()
         description = desc_entry.get()
-        due_date = due_date_entry.get()
+        due_date = calendar.get_date()
         priority = priority_var.get()
         tags_input = tags_entry.get()
         tags = [tag.strip() for tag in tags_input.split(",")] if tags_input else []
@@ -234,7 +229,7 @@ def edit_button():
         
     edit_window = tk.Toplevel(root)
     edit_window.title("Edit Task")
-    edit_window.geometry("300x450")
+    edit_window.geometry("300x575")
 
     edit_window.grab_set()
 
@@ -248,16 +243,9 @@ def edit_button():
     desc_entry.insert(0, task.description)
     desc_entry.pack(pady=5)
 
-    # Validation for Due Date
-    def validate_date_input(new_value):
-        return all(char.isdigit() or char == "-" for char in new_value) and len(new_value) <= 10
-    
-    vcmd = (root.register(validate_date_input), '%P')
-
-    tk.Label(edit_window, text="Due Date (YYYY-MM-DD):").pack(pady=5)
-    due_date_entry = tk.Entry(edit_window, validate="key", validatecommand=vcmd)
-    due_date_entry.insert(0, task.due_date if task.due_date else "")
-    due_date_entry.pack(pady=5)
+    tk.Label(edit_window, text="Due Date:").pack(pady=5)
+    calendar = Calendar(edit_window, selectmode='day', date_pattern="yyyy-mm-dd")
+    calendar.pack(pady=5)
 
     tk.Label(edit_window, text="Priority:").pack(pady=5)
     priority_var = tk.StringVar(value=task.priority)
@@ -285,7 +273,7 @@ def edit_button():
     def confirm_edit():
         new_title = title_entry.get().strip()
         new_description = desc_entry.get().strip()
-        new_due_date = due_date_entry.get().strip()
+        new_due_date = calendar.get_date().strip()
         new_priority= priority_var.get().strip()
         new_tags_input = tags_entry.get().strip()
 
