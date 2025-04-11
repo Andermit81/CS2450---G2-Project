@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkcalendar import Calendar
+from datetime import datetime
 
 class EditTaskHandler:
-    def __init__(self, parent, task_tree, task_manager, refresh_callback):
+    def __init__(self, parent, task_tree, task_manager, refresh_callback, calendar_view, task_id = None):
         """
         Parameters:
         - parent: Main application window (tk.Tk)
@@ -15,23 +16,36 @@ class EditTaskHandler:
         self.task_tree = task_tree
         self.task_manager = task_manager
         self.refresh_callback = refresh_callback
-        self.task = None  # Will hold the selected task
+        self.calendar_view = calendar_view
+        self.task_id = task_id 
+        self.task = None # Will hold the selected task
         
         # Validate selection and initialize
-        selected_item = self._validate_selection()
-        if selected_item:
-            self.task = self.task_manager.tasks.get(selected_item)
-            if self.task:
-                self._create_dialog()
-            else:
-                messagebox.showerror("Error", "Task not found!")
+        if task_id:
+            self.task = self.task_manager.tasks.get(task_id)
+        else:
+            selected_item = self._validate_selection()
+            if not selected_item:
+                # Try to get the selected task from the CalendarView
+                selected_item = self.calendar_view.get_selected_task_id()
+            if selected_item:
+                self.task = self.task_manager.tasks.get(selected_item)
+
+        if self.task:
+            self._create_dialog()
+        else:
+            messagebox.showerror("Error", "Task not found!")
 
     def _validate_selection(self):
         """Ensure a task is selected in the Treeview"""
         selected = self.task_tree.selection()
         if not selected:
-            messagebox.showwarning("Warning", "Please select a task to edit!")
-            return None
+            selected_task_id = self.calendar_view.get_selected_task_id()
+            if selected_task_id:
+                return selected_task_id
+            else:
+                messagebox.showwarning("Warning", "Please select a task to edit!")
+                return None
         return selected[0]
 
     def _create_dialog(self):
@@ -71,9 +85,9 @@ class EditTaskHandler:
         # Safely set date if available
         if self.task.due_date:
             try:
-                self.calendar.set_date(self.task.due_date)
+                self.calendar.selection_set(self.task.due_date)
             except Exception:
-                pass  # Fallback to today's date
+                print("Fallback to today's date")  # Fallback to today's date
         self.calendar.pack(pady=5)
 
     def _create_priority_menu(self):
@@ -133,6 +147,12 @@ class EditTaskHandler:
         new_priority = self.priority_var.get().strip()
         new_tags = [t.strip() for t in self.tags_entry.get().split(",") if t.strip()]
 
+        try:
+            datetime.strptime(new_due_date, "%Y-%m-%d")  # Ensure valid date format
+        except ValueError:
+            messagebox.showerror("Error", "Invalid due date format. Please select a valid date.")
+            return
+
         # Update task properties
         if new_title:
             self.task.title = new_title
@@ -143,5 +163,7 @@ class EditTaskHandler:
 
         # Refresh UI and close
         self.refresh_callback()
+        self.calendar_view.highlight_task_days()
+        self.calendar_view.on_date_select(None)
         messagebox.showinfo("Success", "Task updated successfully!")
         self.edit_window.destroy()

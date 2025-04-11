@@ -12,6 +12,7 @@ from ..cli.task_manager import TaskManager
 from .sorter import Sorter, TitleSorter, DateSorter, PrioritySorter
 from ..cli.taskstorage import TaskStorage
 from .filterer import Filterer, PriorityFilterer, CompleteFilterer, ShowAllFilterer, DefaultFilterer, TagFilterer
+from .calendar_view import CalendarView
 from .colors import (
     BG_COLOR,
     SIDEBAR_COLOR,
@@ -26,12 +27,13 @@ from .treeview_style import configure_treeview_styles
 from .add_task import AddTaskHandler
 from .delete_task import DeleteTaskHandler
 from .edit_task import EditTaskHandler
+from .toggle_view import ToggleViewHandler
 
 
 # Initialize App
 root = tk.Tk()
 root.title("Task Manager")
-root.geometry("1000x600")
+root.geometry("1000x650")
 root.configure(bg=BG_COLOR)
 
 # configures the treeview styles
@@ -61,6 +63,9 @@ def on_leave(event):
 # Main Task Area (Right Side) - Using grid layout
 task_area = tk.Frame(root, bg=TASK_AREA_BG)
 task_area.pack(side="right", expand=True, fill="both", padx=10, pady=10)
+
+# Initialize the CalendarView
+calendar_view = CalendarView(task_area, task_man, bg_color=BG_COLOR, text_color=TEXT_COLOR)
 
 # Configure grid weights
 task_area.rowconfigure(0, weight=1)  # Treeview will expand
@@ -122,15 +127,19 @@ def display_tasks():
 
 # Implements the add button and all of its logic from AddTaskDialog Class
 def add_button():
-    AddTaskHandler(root, task_man, display_tasks)
+    AddTaskHandler(root, task_man, display_tasks, calendar_view)
 
 # Implements the delete button and all the logic from DeleteTaskHandler
 def delete_button():
-    DeleteTaskHandler(task_tree, task_man, display_tasks).execute()
+    DeleteTaskHandler(task_tree, task_man, display_tasks, calendar_view).execute()
 
 # Implemetns the edit button and all the logic from EditTaskHandler
 def edit_button():
-    EditTaskHandler(root, task_tree, task_man, display_tasks)
+    EditTaskHandler(root, task_tree, task_man, display_tasks, calendar_view)
+
+# Implements the toggle view button and all the logic from ToggleViewHandler
+def toggle_view():
+    ToggleViewHandler(task_tree, calendar_view).toggle()
     
 # Save/Load Functions
 def save_button():
@@ -253,6 +262,7 @@ buttons = [
     ("Load Tasks", load_button),
     ("Sort Tasks", sort_button),
     #("Filter Tasks", filter_button)
+    ("Toggle View", toggle_view)
 ]
 
 for btn_text, command in buttons:
