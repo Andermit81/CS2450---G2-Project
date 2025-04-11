@@ -7,10 +7,11 @@ class AddTaskHandler:
     """
     A handler for managing the Add Task functionality within the application.
     """
-    def __init__(self, parent, task_manager, refresh_callback):
+    def __init__(self, parent, task_manager, refresh_callback, calendar_view):
         self.parent = parent
         self.task_manager = task_manager
         self.refresh_callback = refresh_callback
+        self.calendar_view = calendar_view
         self.create_widgets()
 
     def create_widgets(self):
@@ -97,4 +98,6 @@ class AddTaskHandler:
         new_task = Task(title, description, due_date, priority, tags)
         self.task_manager.add_task(new_task)
         self.refresh_callback()
+        self.calendar_view.highlight_task_days()
+        self.calendar_view.on_date_select(None)
         self.add_window.destroy()

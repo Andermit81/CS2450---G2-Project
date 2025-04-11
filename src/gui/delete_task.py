@@ -3,7 +3,7 @@ from tkinter import messagebox
 from ..cli.task import Task
 
 class DeleteTaskHandler:
-    def __init__(self, task_tree, task_manager, refresh_callback):
+    def __init__(self, task_tree, task_manager, refresh_callback, calendar_view):
         """
         Parameters:
         - task_tree: Reference to the Treeview widget
@@ -13,22 +13,35 @@ class DeleteTaskHandler:
         self.task_tree = task_tree
         self.task_manager = task_manager
         self.refresh_callback = refresh_callback
+        self.calendar_view = calendar_view
 
     def execute(self):
         """Main entry point for deletion process"""
         selected_items = self._get_selected_items()
         if not selected_items:
-            return
+            selected_task_id = self.calendar_view.get_selected_task_id()
+            if selected_task_id:
+                selected_items = [selected_task_id]
+            else:
+                return
 
         if self._confirm_deletion():
             self._perform_deletion(selected_items)
             self.refresh_callback()
+            self.calendar_view.highlight_task_days()
+            self.calendar_view.on_date_select(None)
 
     def _get_selected_items(self):
         """Returns list of selected item IDs or shows warning"""
         selected = self.task_tree.selection()
         if not selected:
-            messagebox.showwarning("Warning", "Please select a task to delete!")
+            # Check CalendarView's Listbox selection
+            selected_task_id = self.calendar_view.get_selected_task_id()
+            if selected_task_id:
+                return [selected_task_id]  # Return the selected task ID as a list
+            else:
+                messagebox.showwarning("Warning", "Please select a task to delete!")
+                return None
         return selected
 
     def _confirm_deletion(self):
