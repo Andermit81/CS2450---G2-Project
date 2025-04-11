@@ -15,6 +15,7 @@ class CalendarView:
         self.task_manager = task_manager
         self.bg_color = bg_color
         self.text_color = text_color
+        self.task_id_map = {}
 
         # Create a frame for the calendar view
         self.frame = Frame(self.parent, bg=self.bg_color)
@@ -94,6 +95,7 @@ class CalendarView:
 
         self.task_list.config(state="normal")
         self.task_list.delete(0, "end")
+        self.task_id_map.clear()
 
         if not tasks:
             self.task_list.insert("end", "No tasks for this date")
@@ -112,6 +114,8 @@ class CalendarView:
                     self.task_list.insert("end", task_text)
                     self.task_list.itemconfig("end", bg="#ECF0F1")
 
+                self.task_id_map[index] = task.task_id
+
 
     def get_tasks_for_date(self, date):
         """Retrieves tasks for a specific date."""
@@ -125,8 +129,4 @@ class CalendarView:
         selected_index = self.task_list.curselection()
         if not selected_index:
             return None
-        selected_task_text = self.task_list.get(selected_index[0])
-        for task_id, task in self.task_manager.tasks.items():
-            if f"{task.title} - {task.priority}" in selected_task_text:
-                return task_id
-        return None
+        return self.task_id_map.get(selected_index[0])
