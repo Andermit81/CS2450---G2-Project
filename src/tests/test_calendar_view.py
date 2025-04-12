@@ -14,7 +14,6 @@ class TestCalendarView(unittest.TestCase):
 
         self.task_manager.tasks.clear()
         
-        # Add sample tasks
         self.task1 = Task(title="Task 1", due_date="2025-04-15", priority="High")
         self.task2 = Task(title="Task 2", due_date="2025-04-15", priority="Medium")
         self.task3 = Task(title="Task 3", due_date="2025-04-16", priority="Low")
@@ -29,14 +28,14 @@ class TestCalendarView(unittest.TestCase):
     def test_get_tasks_for_date(self):
         """Test that tasks are correctly retrieved for a specific date."""
         tasks = self.calendar_view.get_tasks_for_date("2025-04-15")
-        self.assertEqual(len(tasks), 2)  # Ensure only 2 tasks are returned
+        self.assertEqual(len(tasks), 2)
         print(tasks)
         self.assertIn(self.task1, tasks)
         self.assertIn(self.task2, tasks)
 
     def test_on_date_select(self):
         """Test that tasks are displayed in the Listbox for the selected date."""
-        self.calendar_view.on_date_select(None)  # Simulate date selection
+        self.calendar_view.on_date_select(None)
         self.calendar_view.calendar.selection_set("2025-04-15")
         self.calendar_view.on_date_select(None)
 
@@ -46,11 +45,10 @@ class TestCalendarView(unittest.TestCase):
 
     def test_get_selected_task_id(self):
         """Test that the correct task ID is returned for a selected Listbox item."""
-        self.calendar_view.on_date_select(None)  # Simulate date selection
+        self.calendar_view.on_date_select(None)
         self.calendar_view.calendar.selection_set("2025-04-15")
         self.calendar_view.on_date_select(None)
 
-        # Select the first task in the Listbox
         self.calendar_view.task_list.selection_set(0)
         selected_task_id = self.calendar_view.get_selected_task_id()
         self.assertEqual(selected_task_id, self.task1.task_id)
