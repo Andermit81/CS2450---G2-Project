@@ -121,7 +121,7 @@ class CalendarView:
         """Retrieves tasks for a specific date."""
         tasks_for_date = []
         for task_id, task in self.task_manager.tasks.items():
-            if task.due_date == date:
+            if task.due_date == date and task_id not in [t.task_id for t in tasks_for_date]:
                 tasks_for_date.append(task)
         return tasks_for_date
     
