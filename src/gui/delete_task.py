@@ -5,6 +5,8 @@ from ..cli.task import Task
 class DeleteTaskHandler:
     def __init__(self, task_tree, task_manager, refresh_callback, calendar_view):
         """
+        Class for deleting existing tasks
+        
         Parameters:
         - task_tree: Reference to the Treeview widget
         - task_manager: TaskManager instance
