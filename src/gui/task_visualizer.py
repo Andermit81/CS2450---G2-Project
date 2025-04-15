@@ -6,6 +6,7 @@ from ..cli.task_manager import TaskManager
 TASK_AREA_BG = "#ECF0F1"
 
 class TaskVisualizer:
+    """A class for visualizing task completion data using a pie chart"""
     def __init__(self, task_manager: TaskManager):
         self.task_manager = task_manager
 
