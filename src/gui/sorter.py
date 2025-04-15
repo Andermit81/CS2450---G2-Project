@@ -3,11 +3,13 @@ from ..cli.task_manager import TaskManager as task_manager
 from abc import ABC, abstractmethod
 
 class Sorter:
+    """Abstract base class for task sorting strategies"""
     @abstractmethod
     def sort_tasks(self, input_dict: dict) -> dict:
         pass
 
 class TitleSorter(Sorter):
+    """strategy to sort the tasks by title"""
     def sort_tasks(self, input_dict: dict, descending: bool = False) -> dict:
         list_of_titles = []
         for task_item in input_dict.values():
@@ -31,6 +33,7 @@ class TitleSorter(Sorter):
         return sorted_dict
     
 class DateSorter(Sorter):
+    """Strategy to sort the tasks by date"""
     def sort_tasks(self, input_dict: dict, descending: bool = False) -> dict:
         list_of_dates = []
         for task_item in input_dict.values():
@@ -54,7 +57,7 @@ class DateSorter(Sorter):
         return sorted_dict
     
 class PrioritySorter(Sorter):
-    
+    """Strategy to sort tasks by their priority rating"""
     def priority_sort(self, priority):
         criteria = ["High", "Medium", "Low"]
         return criteria.index(priority)
@@ -82,6 +85,7 @@ class PrioritySorter(Sorter):
         return sorted_dict
     
 class TagSorter(Sorter):
+    """Strategy to sort tasks based on their tags"""
     def sort_tasks(self, input_dict: dict, descending: bool = False) -> dict:
         list_of_titles = []
         for task_item in input_dict.values():
