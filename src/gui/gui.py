@@ -210,8 +210,8 @@ buttons = [
     ("Sort Tasks", sort_button),
     #("Filter Tasks", filter_button)
     ("Toggle View", toggle_view),
-    ("Undo", undo_button),
-    ("Redo", redo_button)
+    ("Undo Add/Delete", undo_button),
+    ("Redo Add/Delete", redo_button)
 ]
 
 for btn_text, command in buttons:
