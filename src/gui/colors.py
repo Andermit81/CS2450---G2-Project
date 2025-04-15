@@ -1,4 +1,4 @@
-# colors.py
+# Global colors used throughout the app
 BG_COLOR = "#F5F7FA"  # Main background
 SIDEBAR_COLOR = "#2C3E50"  # Sidebar background
 BUTTON_COLOR = "#34495E"  # Button color
