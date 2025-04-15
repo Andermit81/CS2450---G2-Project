@@ -6,6 +6,8 @@ from datetime import datetime
 class EditTaskHandler:
     def __init__(self, parent, task_tree, task_manager, refresh_callback, calendar_view, task_id = None):
         """
+        Class for editing already created tasks
+        
         Parameters:
         - parent: Main application window (tk.Tk)
         - task_tree: Treeview widget reference
