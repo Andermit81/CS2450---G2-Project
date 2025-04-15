@@ -11,7 +11,7 @@ Prepared by <Carson Grant>
 | ----           | -------   | -------------------    | --------- |
 | Mitchell A.    |  2/19/25  | Milestone 2            |  0.2      |
 | Mitchell A.    |  3/29/25  | Milestone 4            |  0.4      |
-|                |           |                        |           |
+| Carson G,      |  4/14/25  | Milestone 5            |  0.5      |
 
 Table of Contents
 =================
@@ -133,3 +133,7 @@ Conform to agreed-upon syntax, keywords, and terms.
 ### 4. Additional Features
 
 Added a Sorting feature that allows users to sort their task list by priority, title, or due date.
+Added a Calendar view that gives the user a visual representation of when their tasks are due.
+Added a Task Visualizer that shows in a pie chart the ratio of completed and uncompleted tasks.
+Added undo redo functionality that will allow users to undo mistakes such as deleting a task.
+
