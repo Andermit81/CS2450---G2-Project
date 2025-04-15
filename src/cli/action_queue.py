@@ -1,6 +1,10 @@
 from .task_manager import TaskManager
 from .task import Task
 
+'''An action queue that keeps track of actions completed and then puts them in a queue.
+These actions can then later be undone or redone.'''
+
+
 class ActionQueue:
     
     _instance = None
@@ -18,12 +22,13 @@ class ActionQueue:
         self._redo_queue = []
         self._task_man_instance = TaskManager()
     '''
-    
+    #Every time an undoable action is performed, this should be called immediately after.
     @classmethod    
     def add_action(cls, restore_item, action: str):
         ActionQueue._undo_queue.append([restore_item, action])
         print("Adding action")
-      
+    
+    #Undoes the latest action. Right now only works with add/delete.  
     @classmethod    
     def undo_action(cls):
         action_item = ActionQueue._undo_queue.pop()
@@ -47,6 +52,7 @@ class ActionQueue:
             ActionQueue._redo_queue[-1][0] = ActionQueue._task_man_instance.tasks
             ActionQueue._task_man_instance.tasks = action_item[0]
     
+    #Redoes the latest action. As of now, only add/delete work.
     @classmethod    
     def redo_action(cls):
         action_item = ActionQueue._redo_queue.pop()
