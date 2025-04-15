@@ -11,6 +11,7 @@ from ..cli.task import Task
 from ..cli.task_manager import TaskManager
 from .sorter import Sorter, TitleSorter, DateSorter, PrioritySorter
 from ..cli.taskstorage import TaskStorage
+from ..cli.action_queue import ActionQueue
 from .filterer import Filterer, PriorityFilterer, CompleteFilterer, ShowAllFilterer, DefaultFilterer, TagFilterer
 from .calendar_view import CalendarView
 from .colors import (
@@ -52,6 +53,9 @@ sidebar.pack(side="left", fill="y")
 
 # Task Manager instance
 task_man = TaskManager()
+
+# Action Queue instance
+action_queue = ActionQueue()
 
 # Button Hover Effects
 def on_hover(event):
@@ -176,6 +180,7 @@ def sort_button():
             sorter = DateSorter()
         elif option == sort_options[2]:
             sorter = PrioritySorter()
+        action_queue.add_action(task_man.tasks, "sort")
         task_man.tasks = sorter.sort_tasks(task_man.tasks)
         display_tasks()
         sort_window.destroy()
@@ -183,7 +188,17 @@ def sort_button():
         
     sub_button = Button(sort_window, text = "Sort", command = press_sort)
     sub_button.pack(padx=20, pady=20)
+
+
+# Undo button
+
+def undo_button():
+    action_queue.undo_action()
+    display_tasks()
     
+def redo_button():
+    action_queue.redo_action()
+    display_tasks()
 
 # Sidebar Buttons
 buttons = [
@@ -194,7 +209,9 @@ buttons = [
     ("Load Tasks", load_button),
     ("Sort Tasks", sort_button),
     #("Filter Tasks", filter_button)
-    ("Toggle View", toggle_view)
+    ("Toggle View", toggle_view),
+    ("Undo", undo_button),
+    ("Redo", redo_button)
 ]
 
 for btn_text, command in buttons:

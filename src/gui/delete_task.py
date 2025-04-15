@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from ..cli.task import Task
+from ..cli.action_queue import ActionQueue
 
 class DeleteTaskHandler:
     def __init__(self, task_tree, task_manager, refresh_callback, calendar_view):
@@ -16,6 +17,7 @@ class DeleteTaskHandler:
         self.task_manager = task_manager
         self.refresh_callback = refresh_callback
         self.calendar_view = calendar_view
+        self.action_queue = ActionQueue()
 
     def execute(self):
         """Main entry point for deletion process"""
@@ -57,5 +59,6 @@ class DeleteTaskHandler:
         """Actually removes tasks from manager and treeview"""
         for item_id in items:
             if item_id in self.task_manager.tasks:
+                self.action_queue.add_action(self.task_manager.tasks[item_id], "delete")
                 self.task_manager.remove_task(item_id)
             self.task_tree.delete(item_id)

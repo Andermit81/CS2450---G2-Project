@@ -1,11 +1,24 @@
-from task_manager import TaskManager
-from task import Task
+from .task_manager import TaskManager
+from .task import Task
 
 class ActionQueue:
-    def __init__(self, task_man: TaskManager):
+    
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(ActionQueue, cls).__new__(cls)
+            cls._instance._undo_queue = []
+            cls._instance._redo_queue = []
+            cls._instance._task_man_instance = TaskManager()
+        return cls._instance 
+    
+    '''   
+        def __init__(self):
         self._undo_queue = []
         self._redo_queue = []
-        self._task_man_instance = task_man
+        self._task_man_instance = TaskManager()
+    '''
         
     def add_action(self, restore_item, action: str):
         self._undo_queue.append([restore_item, action])
