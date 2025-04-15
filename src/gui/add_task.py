@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from tkcalendar import Calendar
 from ..cli.task import Task
+from ..cli.action_queue import ActionQueue
 
 class AddTaskHandler:
     """
@@ -12,6 +13,7 @@ class AddTaskHandler:
         self.task_manager = task_manager
         self.refresh_callback = refresh_callback
         self.calendar_view = calendar_view
+        self.action_queue = ActionQueue()
         self.create_widgets()
 
     def create_widgets(self):
@@ -97,6 +99,7 @@ class AddTaskHandler:
 
         new_task = Task(title, description, due_date, priority, tags)
         self.task_manager.add_task(new_task)
+        self.action_queue.add_action(new_task, "add")
         self.refresh_callback()
         self.calendar_view.highlight_task_days()
         self.calendar_view.on_date_select(None)

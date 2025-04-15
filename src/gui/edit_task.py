@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from tkcalendar import Calendar
 from datetime import datetime
+from ..cli.action_queue import ActionQueue
 
 class EditTaskHandler:
     def __init__(self, parent, task_tree, task_manager, refresh_callback, calendar_view, task_id = None):
@@ -21,6 +22,7 @@ class EditTaskHandler:
         self.calendar_view = calendar_view
         self.task_id = task_id 
         self.task = None # Will hold the selected task
+        self.action_queue = ActionQueue()
         
         # Validate selection and initialize
         if task_id:
@@ -154,6 +156,10 @@ class EditTaskHandler:
         except ValueError:
             messagebox.showerror("Error", "Invalid due date format. Please select a valid date.")
             return
+
+
+        # Add task edit to the undo queue
+        self.action_queue.add_action(self.task, "edit")
 
         # Update task properties
         if new_title:
