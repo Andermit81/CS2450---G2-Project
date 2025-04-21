@@ -1,5 +1,5 @@
-from .task import Task
-from .taskstorage import TaskStorage 
+from task import Task
+from taskstorage import TaskStorage 
 import json
 
 class TaskManager:
