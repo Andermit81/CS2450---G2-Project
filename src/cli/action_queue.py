@@ -1,5 +1,5 @@
-from task_manager import TaskManager
-from task import Task
+from .task_manager import TaskManager
+from .task import Task
 
 '''An action queue that keeps track of actions completed and then puts them in a queue.
 These actions can then later be undone or redone.'''
