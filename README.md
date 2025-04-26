@@ -1,7 +1,13 @@
 # CS2450---G2-Project
 
+## Project Presentation
+[View our group presentation](./docs/CS2450%20Prez.pdf)
+
+## Demo Video
+[Watch a short demo](./docs/demo.mp4)
+
 ## About the Project
-G2's Task Manager is a simple python application that cleanly and clearly presents added tasks back to the user  
+G2's Task Manager is a Python application that helps users organize and track their tasks efficiently. Users can add, edit, delete, and sort tasks in a tabular format with fields for title, description, due date, priority, and tags. Tasks can be marked as done, and a built-in visualizer (using matplotlib) displays the completion rate as a pie chart. The interface allows easy toggling between a table view and a calendar view. In calendar view, users can select a date to see tasks due on that day, with dates highlighted yellow for pending tasks and green for completed ones. Tasks marked as done are highlighted green in both views for clear visibility. 
 
 ### Key Features  
 -Add new tasks with descriptions and due dates  
